@@ -2,6 +2,8 @@
 from stemmer import Stemmer
 from vertex import Vertex
 from edge import Edge
+import torch
+import torchtext
 
 
 class Graph:
@@ -12,7 +14,10 @@ class Graph:
         self.word_vertex = word_vertex
         self.vertexes_name = names
         self.stem = Stemmer()
+        self.treshold_sim = 0.8
         self.abbreviation = {} ##create  shortening word for example for word Number it will be NUM
+        self.glove = torchtext.vocab.GloVe(name="6B", # trained on Wikipedia 2014 corpus of 6 billion words
+                              dim=50)   # embedding size = 100
 
     def add_word_to_vertex(self, word_vertex):
         self.word_vertex = word_vertex
@@ -42,7 +47,8 @@ class Graph:
         for v in candidates:
             #---------- simple rule 1 ---------#
             instrac_1 = len(query.intersection(self.bow_vertex[v]))
-            score_1 = instrac_1/(len(self.bow_vertex[v]) - instrac_1)
+            score_1_r = instrac_1/(len(query))
+            score_1_ir = instrac_1/(len(self.bow_vertex[v]))
             # ---------- simple rule 1 ---------#
 
             # ---------- stemming rule  ---------#
@@ -53,7 +59,8 @@ class Graph:
             for t in query:
                 new_query_2.add(self.stem.stem_term(t))
             instrac_2 = len(new_query_2.intersection(new_bow_2[v]))
-            score_2 = instrac_2/(len(new_bow_2[v]) - instrac_2)
+            score_2_r = instrac_2/len(new_query_2)
+            score_2_ir = instrac_2/(len(new_bow_2[v]))
             # ---------- stemming rule  ---------#
 
             # ---------- abbreviation rule  ---------#
@@ -70,23 +77,25 @@ class Graph:
                 except:
                     new_query_3.add(t)
             instrac_3 = len(new_query_3.intersection(new_bow_3[v]))
-            score_3 = instrac_3/(len(new_bow_3[v]) - instrac_3)
+            score_3_r = instrac_3/(len(new_query_3))
+            score_3_ir = instrac_3/(len(new_bow_3[v]))
             # ---------- abbreviation rule  ---------#
 
             # ---------- glove rule  ---------#
-            new_bow_4 = {v: set()}
-            for w in self.bow_vertex[v]:
-                pass  #### add similar words from glove wikipedia
-            new_query_4 = set()
-            for t in query:
-                pass #### add similar words from glove wikipedia
 
-            instrac_4 = len(new_query_4.intersection(new_bow_4[v]))
-            score_4 = instrac_4/(len(new_bow_4[v]) - instrac_4)
+            sim_lst = []
+            not_in_q_bow = set(self.bow_vertex[v]) - query.intersection(self.bow_vertex[v])
+            for q in query:
+                for not_q in not_in_q_bow:
+                    sim = torch.cosine_similarity(q.unsqueeze(0), not_q.unsqueeze(0))
+                    sim_lst.append(sim)
+            max_sim = max(sim_lst)
+            score_4_r = max_sim/(len(query))
+            score_4_ir = max_sim/(len(self.bow_vertex[v]))
             # ---------- glove rule  ---------#
-            # query_size = len(query)
-            score = max(score_1, score_2, score_3, score_4)
-            scores[v] = score
+            score_r = max(score_1_r, score_2_r, score_3_r, score_4_r)
+            score_ir = max(score_1_ir, score_2_ir, score_3_ir, score_4_ir)
+            scores[v] = 2 * score_r * score_ir / ( score_r + score_ir)
         return scores
 
     def get_candidates(self, query_set):
