@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from BeamSearch.Interfaces.IGraph import IGraph
 
 
 class IQuery(ABC):
@@ -7,5 +8,5 @@ class IQuery(ABC):
         pass
 
     @abstractmethod
-    def build_graph(self)->Graph:
+    def build_graph(self)->IGraph:
         pass
