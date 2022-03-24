@@ -1,9 +1,10 @@
+from BeamSearch.Interfaces.IResult import IResult
 from Interfaces.IEdge import IEdge
 from Interfaces.IGraph import IGraph
 from Interfaces.IVertex import IVertex
 
 
-class Result:
+class Result(IResult):
 
     def __init__(self):
         self.graph = IGraph()
