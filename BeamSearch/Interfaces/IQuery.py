@@ -10,3 +10,4 @@ class IQuery(ABC):
     @abstractmethod
     def build_graph(self)->IGraph:
         pass
+

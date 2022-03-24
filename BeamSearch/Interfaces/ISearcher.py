@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-
 from BeamSearch.Interfaces.IResult import IResult
 
 

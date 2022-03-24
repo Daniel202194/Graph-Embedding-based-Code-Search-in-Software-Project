@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-
 from BeamSearch.Interfaces.IEdge import IEdge
 from BeamSearch.Interfaces.IResult import IResult
 from BeamSearch.Interfaces.IVertex import IVertex
