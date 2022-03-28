@@ -6,7 +6,7 @@ from BeamSearch.Interfaces.IVertex import IVertex
 
 class IGraph(ABC):
     @abstractmethod
-    def bfs(self, goal, start):
+    def bfs(self, goal: IVertex, start: IVertex):
         pass
 
     @abstractmethod
