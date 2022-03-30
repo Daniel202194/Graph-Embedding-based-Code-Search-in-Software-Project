@@ -6,7 +6,7 @@ from parser import Parse
 graphs_list = []
 
 if __name__ == '__main__':
-    for cur_graph in os.listdir(os.getcwd() + '\\' + graphs_list):
+    for cur_graph in os.listdir(os.getcwd() + '\\' + 'graphs_list'):
         f = open(cur_graph)
         graphs_list.append(Graph.generate_graph(json.load(f)))
         f.close()
