@@ -1,9 +1,9 @@
-
 from stemmer import Stemmer
 from vertex import Vertex
 from edge import Edge
 import torch
 import torchtext
+from BeamSearch.Interfaces.IGraph import IGraph
 
 
 class Graph:
@@ -14,10 +14,69 @@ class Graph:
         self.word_vertex = word_vertex
         self.vertexes_name = names
         self.stem = Stemmer()
+        self.vertexes_dsitances = {}
         self.treshold_sim = 0.8
-        self.abbreviation = {} ##create  shortening word for example for word Number it will be NUM
-        self.glove = torchtext.vocab.GloVe(name="6B", # trained on Wikipedia 2014 corpus of 6 billion words
-                              dim=50)   # embedding size = 100
+        self.abbreviation = {}  ##create  shortening word for example for word Number it will be NUM
+        self.glove = torchtext.vocab.GloVe(name="6B",  # trained on Wikipedia 2014 corpus of 6 billion words
+                                           dim=50)  # embedding size = 100
+        self.neighbours = {}
+        self.create_neighbours()
+
+    def create_neighbours(self):
+        for vertex in self.vertexes:
+            neighbours = []
+            for edge in self.edges:
+                if edge.in_v.key == vertex.key:
+                    neighbours.append(edge.out_v)
+            self.neighbours[vertex] = neighbours
+
+    def bfs(self, goal, start):
+        visited = []
+        pred = {}
+        dist = {start: 0}
+        queue = []
+        visited.append(start)
+        queue.append(start)
+        found = False
+        while queue and not found:
+            node = queue.pop()
+            for neighbour in self.neighbours[node]:
+                if neighbour not in visited:
+                    visited.append(neighbour)
+                    dist[neighbour] = dist[node] + 1
+                    pred[neighbour] = node
+                    queue.append(neighbour)
+                    if neighbour.key == goal.key:
+                        found = True
+                        break
+        if not found:
+            print("There is no path from source node to destination node")
+        else:
+            crawl = goal
+            path = [crawl]
+            while crawl in pred:
+                path.append(pred[crawl])
+                crawl = pred[crawl]
+            path.reverse()
+            return path
+
+    def get_vertices(self):
+        return list(self.vertexes.values())
+
+    def get_edges(self):
+        return list(self.edges.values())
+
+    def add_edge(self, edge):
+        if edge in self.edges:
+            raise Exception(f'edge already exists')
+        else:
+            self.edges.add(edge)
+
+    def add_vertex(self, vertex):
+        if vertex.key in self.vertexes:
+            raise Exception(f'vertex with key {vertex.key} already exists')
+        else:
+            self.vertexes[vertex.key] = vertex
 
     def add_word_to_vertex(self, word_vertex):
         self.word_vertex = word_vertex
@@ -42,13 +101,20 @@ class Graph:
             set_edges.add(Edge(e['type'], set_vertexes[e['from']], set_vertexes[e['to']]))
         return Graph(set_vertexes, set_edges)
 
+    # def set_distances_between_vertecies(self):
+    #     dist = {}
+    #     for vertex in self.vertexes:
+    #         for edge in self.edges:
+    #             if edge.in_v is vertex:
+    #
+
     def get_score_relevant(self, candidates, query):
         scores = {}
         for v in candidates:
-            #---------- simple rule 1 ---------#
+            # ---------- simple rule 1 ---------#
             instrac_1 = len(query.intersection(self.bow_vertex[v]))
-            score_1_r = instrac_1/(len(query))
-            score_1_ir = instrac_1/(len(self.bow_vertex[v]))
+            score_1_r = instrac_1 / (len(query))
+            score_1_ir = instrac_1 / (len(self.bow_vertex[v]))
             # ---------- simple rule 1 ---------#
 
             # ---------- stemming rule  ---------#
@@ -59,8 +125,8 @@ class Graph:
             for t in query:
                 new_query_2.add(self.stem.stem_term(t))
             instrac_2 = len(new_query_2.intersection(new_bow_2[v]))
-            score_2_r = instrac_2/len(new_query_2)
-            score_2_ir = instrac_2/(len(new_bow_2[v]))
+            score_2_r = instrac_2 / len(new_query_2)
+            score_2_ir = instrac_2 / (len(new_bow_2[v]))
             # ---------- stemming rule  ---------#
 
             # ---------- abbreviation rule  ---------#
@@ -77,8 +143,8 @@ class Graph:
                 except:
                     new_query_3.add(t)
             instrac_3 = len(new_query_3.intersection(new_bow_3[v]))
-            score_3_r = instrac_3/(len(new_query_3))
-            score_3_ir = instrac_3/(len(new_bow_3[v]))
+            score_3_r = instrac_3 / (len(new_query_3))
+            score_3_ir = instrac_3 / (len(new_bow_3[v]))
             # ---------- abbreviation rule  ---------#
 
             # ---------- glove rule  ---------#
@@ -90,12 +156,12 @@ class Graph:
                     sim = torch.cosine_similarity(q.unsqueeze(0), not_q.unsqueeze(0))
                     sim_lst.append(sim)
             max_sim = max(sim_lst)
-            score_4_r = max_sim/(len(query))
-            score_4_ir = max_sim/(len(self.bow_vertex[v]))
+            score_4_r = max_sim / (len(query))
+            score_4_ir = max_sim / (len(self.bow_vertex[v]))
             # ---------- glove rule  ---------#
             score_r = max(score_1_r, score_2_r, score_3_r, score_4_r)
             score_ir = max(score_1_ir, score_2_ir, score_3_ir, score_4_ir)
-            scores[v] = 2 * score_r * score_ir / ( score_r + score_ir)
+            scores[v] = 2 * score_r * score_ir / (score_r + score_ir)
         return scores
 
     def get_candidates(self, query_set):
