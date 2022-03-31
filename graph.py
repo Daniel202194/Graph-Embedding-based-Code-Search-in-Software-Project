@@ -5,9 +5,12 @@ import torch
 import torchtext
 from BeamSearch.Interfaces.IGraph import IGraph
 
+glove = torchtext.vocab.GloVe(name="6B", dim=50)
+
 
 class Graph:
-    def __init__(self, vertexes={}, edges={}, bow_vertex={}, word_vertex={}, names={}):
+    def __init__(self, vertexes={}, edges={}, abb_dict={}, bow_vertex={}, word_vertex={}, names={}):
+        global glove
         self.vertexes = vertexes
         self.edges = edges
         self.bow_vertex = bow_vertex
@@ -16,9 +19,8 @@ class Graph:
         self.stem = Stemmer()
         self.vertexes_dsitances = {}
         self.treshold_sim = 0.8
-        self.abbreviation = {}  ##create  shortening word for example for word Number it will be NUM
-        self.glove = torchtext.vocab.GloVe(name="6B",  # trained on Wikipedia 2014 corpus of 6 billion words
-                                           dim=50)  # embedding size = 100
+        self.abbreviation = abb_dict
+        self.glove = glove
         self.neighbours = {}
         self.create_neighbours()
 
@@ -26,7 +28,7 @@ class Graph:
         for vertex in self.vertexes:
             neighbours = []
             for edge in self.edges:
-                if edge.in_v.key == vertex.key:
+                if edge.in_v == vertex:
                     neighbours.append(edge.out_v)
             self.neighbours[vertex] = neighbours
 
@@ -35,6 +37,7 @@ class Graph:
         pred = {}
         dist = {start: 0}
         queue = []
+        set_edges = set()
         visited.append(start)
         queue.append(start)
         found = False
@@ -91,15 +94,15 @@ class Graph:
         return self.word_vertex
 
     @staticmethod
-    def generate_graph(data):
+    def generate_graph(data, abb_dict):
         set_vertexes = {}
-        set_edges = {}
+        set_edges = set()
         for v in data['vertices']:
             set_vertexes[v['key']] = (Vertex(v['name'], v['type'], v['key']))
 
         for e in data['edges']:
             set_edges.add(Edge(e['type'], set_vertexes[e['from']], set_vertexes[e['to']]))
-        return Graph(set_vertexes, set_edges)
+        return Graph(set_vertexes, set_edges, abb_dict)
 
     # def set_distances_between_vertecies(self):
     #     dist = {}
@@ -166,6 +169,9 @@ class Graph:
 
     def get_candidates(self, query_set):
         candidates = []
+        glove_set = set()
+        # for word in query_set:
+        #    glove.
         for word in query_set:
             # for vertex in self.vertexes:
 
@@ -174,7 +180,7 @@ class Graph:
                 ab_word = self.abbreviation[word]
             else:
                 ab_word = ''
-            if word.lower() == self.vertexes_name.lower():
+            if word.lower() in self.vertexes_name:
                 candidates.append(self.vertexes_name[word])
             if word in self.word_vertex:
                 candidates.extend(self.word_vertex[word])
@@ -195,5 +201,6 @@ class Graph:
                     candidates.extend(self.word_vertex[ab_word])
                 elif len(self.word_vertex[ab_word]) > 1:
                     candidates.append(self.word_vertex[ab_word][0])
+
             ## add glove wikipedia pre trained model --> for word delete to see as remove
             return set(candidates)

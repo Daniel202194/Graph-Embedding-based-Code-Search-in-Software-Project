@@ -2,14 +2,18 @@ import json
 import os
 
 from graph import Graph
-from parser import Parse
+from parserNew import Parse
+from Abbreviations import Abbreviations
 graphs_list = []
 
 if __name__ == '__main__':
-    for cur_graph in os.listdir(os.getcwd() + '\\' + 'graphs_list'):
-        f = open(cur_graph)
-        graphs_list.append(Graph.generate_graph(json.load(f)))
-        f.close()
+    Abbreviations_path = os.getcwd() + '\\' + 'Abbreviations.csv'
+    abb = Abbreviations(Abbreviations_path)
+    print(abb.abb_dict)
+    for f in os.listdir(os.getcwd() + '\\' + 'graphs_list'):
+        file = open(os.getcwd() + '\\' + 'graphs_list\\' + f)
+        graphs_list.append(Graph.generate_graph(json.load(file), abb.abb_dict))
+        file.close()
 
     p = Parse(graphs_list)
     p.nodes_parse()

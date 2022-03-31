@@ -31,7 +31,7 @@ class Parse:
             bow_vertex = {}
             word_vertex = {}
             vertexes_name = {}
-            for v in graph.vertexes:
+            for v in graph.vertexes.values():
                 v_sets = set()
                 word = ""
                 for i, char in enumerate(v.name):
@@ -44,11 +44,11 @@ class Parse:
                         word = char
                 if len(word) > 0:
                     if word.lower() in word_vertex:
-                        word_vertex[word.lower()] = word_vertex[word.lower()].append(v)
+                        word_vertex[word.lower()].append(v)
                     else:
                         word_vertex[word.lower()] = [v]
                     v_sets.add(word.lower())
                 bow_vertex[v] = v_sets
                 graph.add_bow_vertex(bow_vertex)
                 graph.add_word_to_vertex(word_vertex)
-                vertexes_name[v.name] = v
+                vertexes_name[v.name.lower()] = v
