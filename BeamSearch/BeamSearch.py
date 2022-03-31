@@ -8,19 +8,27 @@ from Interfaces.ISearcher import ISearcher
 
 
 class BeamSearch(ISearcher):
-    def __init__(self, graph: IGraph, query: IQuery):
-        self.graph :IGraph = graph
-        self.query :IQuery = query
-        self.model :IModel = IModel
-        self.ranker = IRanker(self.model)
+    # def __init__(self, graph: IGraph, query: IQuery):
+    #     self.graph :IGraph = graph
+    #     self.query :IQuery = query
+    #     self.model :IModel = IModel
+    #     self.ranker = IRanker(self.model)
+
+    def __init__(self, graph: IGraph):
+        self.graph: IGraph = graph
 
 
-    def search(self, k=1) -> IResult:
-        Ci: dict = self.generating_candidate_nodes()
-        vertex_set = []
-        for c in Ci.values():
-            vertex_set.append(c[0])
-        result: IResult = self.extend_vertex_set_to_connected_subgraph(vertex_set)
+
+    # def search(self, k=1) -> IResult:
+    #     Ci: dict = self.generating_candidate_nodes()
+    #     vertex_set = []
+    #     for c in Ci.values():
+    #         vertex_set.append(c[0])
+    #     result: IResult = self.extend_vertex_set_to_connected_subgraph(vertex_set)
+    #     return result
+
+    def search(self, candidates:set ,k=1) -> IResult:
+        result: IResult = self.extend_vertex_set_to_connected_subgraph(candidates)
         return result
 
 
