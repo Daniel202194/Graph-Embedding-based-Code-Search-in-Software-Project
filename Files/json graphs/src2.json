@@ -1,0 +1,779 @@
+{
+    "vertices": [
+        {
+            "key": 0,
+            "type": "class",
+            "name": "AddOp",
+            "attributes": []
+        },
+        {
+            "key": 1,
+            "type": "method",
+            "name": "operate",
+            "attributes": []
+        },
+        {
+            "key": 2,
+            "type": "method",
+            "name": "getPrecedence",
+            "attributes": []
+        },
+        {
+            "key": 3,
+            "type": "method",
+            "name": "toString",
+            "attributes": []
+        },
+        {
+            "key": 4,
+            "type": "class",
+            "name": "BinaryOp",
+            "attributes": []
+        },
+        {
+            "key": 5,
+            "type": "class",
+            "name": "Calculator",
+            "attributes": []
+        },
+        {
+            "key": 6,
+            "type": "method",
+            "name": "evaluate",
+            "attributes": []
+        },
+        {
+            "key": 7,
+            "type": "class",
+            "name": "ClosingBracket",
+            "attributes": []
+        },
+        {
+            "key": 8,
+            "type": "method",
+            "name": "toString",
+            "attributes": []
+        },
+        {
+            "key": 9,
+            "type": "class",
+            "name": "CalcToken",
+            "attributes": []
+        },
+        {
+            "key": 10,
+            "type": "class",
+            "name": "DivideOp",
+            "attributes": []
+        },
+        {
+            "key": 11,
+            "type": "method",
+            "name": "operate",
+            "attributes": []
+        },
+        {
+            "key": 12,
+            "type": "method",
+            "name": "getPrecedence",
+            "attributes": []
+        },
+        {
+            "key": 13,
+            "type": "method",
+            "name": "toString",
+            "attributes": []
+        },
+        {
+            "key": 14,
+            "type": "class",
+            "name": "ExpressionTree",
+            "attributes": [
+                "StackAsArray",
+                "TreeNode"
+            ]
+        },
+        {
+            "key": 15,
+            "type": "class",
+            "name": "TreeNode",
+            "attributes": []
+        },
+        {
+            "key": 16,
+            "type": "class",
+            "name": "StackAsArray",
+            "attributes": []
+        },
+        {
+            "key": 17,
+            "type": "method",
+            "name": "BuildExpressionTree",
+            "attributes": []
+        },
+        {
+            "key": 18,
+            "type": "class",
+            "name": "ExpTokenizer",
+            "attributes": []
+        },
+        {
+            "key": 19,
+            "type": "method",
+            "name": "nextElement",
+            "attributes": []
+        },
+        {
+            "key": 20,
+            "type": "method",
+            "name": "hasMoreElements",
+            "attributes": []
+        },
+        {
+            "key": 21,
+            "type": "method",
+            "name": "peek",
+            "attributes": []
+        },
+        {
+            "key": 22,
+            "type": "method",
+            "name": "nextToken",
+            "attributes": []
+        },
+        {
+            "key": 23,
+            "type": "method",
+            "name": "hasMoreTokens",
+            "attributes": []
+        },
+        {
+            "key": 24,
+            "type": "method",
+            "name": "countTokens",
+            "attributes": []
+        },
+        {
+            "key": 25,
+            "type": "class",
+            "name": "Object",
+            "attributes": []
+        },
+        {
+            "key": 26,
+            "type": "interface",
+            "name": "Enumeration",
+            "attributes": []
+        },
+        {
+            "key": 27,
+            "type": "class",
+            "name": "MultiplyOp",
+            "attributes": []
+        },
+        {
+            "key": 28,
+            "type": "method",
+            "name": "operate",
+            "attributes": []
+        },
+        {
+            "key": 29,
+            "type": "method",
+            "name": "getPrecedence",
+            "attributes": []
+        },
+        {
+            "key": 30,
+            "type": "method",
+            "name": "toString",
+            "attributes": []
+        },
+        {
+            "key": 31,
+            "type": "class",
+            "name": "OpeningBracket",
+            "attributes": []
+        },
+        {
+            "key": 32,
+            "type": "method",
+            "name": "toString",
+            "attributes": []
+        },
+        {
+            "key": 33,
+            "type": "class",
+            "name": "PowOp",
+            "attributes": []
+        },
+        {
+            "key": 34,
+            "type": "method",
+            "name": "operate",
+            "attributes": []
+        },
+        {
+            "key": 35,
+            "type": "method",
+            "name": "getPrecedence",
+            "attributes": []
+        },
+        {
+            "key": 36,
+            "type": "method",
+            "name": "toString",
+            "attributes": []
+        },
+        {
+            "key": 37,
+            "type": "class",
+            "name": "StackCalculator",
+            "attributes": []
+        },
+        {
+            "key": 38,
+            "type": "method",
+            "name": "infixToPostfix",
+            "attributes": []
+        },
+        {
+            "key": 39,
+            "type": "method",
+            "name": "evaluate",
+            "attributes": []
+        },
+        {
+            "key": 40,
+            "type": "interface",
+            "name": "Calculator",
+            "attributes": []
+        },
+        {
+            "key": 41,
+            "type": "class",
+            "name": "SubtractOp",
+            "attributes": []
+        },
+        {
+            "key": 42,
+            "type": "method",
+            "name": "operate",
+            "attributes": []
+        },
+        {
+            "key": 43,
+            "type": "method",
+            "name": "getPrecedence",
+            "attributes": []
+        },
+        {
+            "key": 44,
+            "type": "method",
+            "name": "toString",
+            "attributes": []
+        },
+        {
+            "key": 45,
+            "type": "class",
+            "name": "Tester",
+            "attributes": []
+        },
+        {
+            "key": 46,
+            "type": "method",
+            "name": "main",
+            "attributes": []
+        },
+        {
+            "key": 47,
+            "type": "method",
+            "name": "test",
+            "attributes": []
+        },
+        {
+            "key": 48,
+            "type": "method",
+            "name": "testAddOp",
+            "attributes": []
+        },
+        {
+            "key": 49,
+            "type": "method",
+            "name": "testSubtractOp",
+            "attributes": []
+        },
+        {
+            "key": 50,
+            "type": "method",
+            "name": "testMultiplyOp",
+            "attributes": []
+        },
+        {
+            "key": 51,
+            "type": "method",
+            "name": "testDivideOp",
+            "attributes": []
+        },
+        {
+            "key": 52,
+            "type": "method",
+            "name": "testPowOp",
+            "attributes": []
+        },
+        {
+            "key": 53,
+            "type": "method",
+            "name": "testOpeningBracket",
+            "attributes": []
+        },
+        {
+            "key": 54,
+            "type": "method",
+            "name": "testClosingBracket",
+            "attributes": []
+        },
+        {
+            "key": 55,
+            "type": "method",
+            "name": "testValueToken",
+            "attributes": []
+        },
+        {
+            "key": 56,
+            "type": "method",
+            "name": "testStackCalculator",
+            "attributes": []
+        },
+        {
+            "key": 57,
+            "type": "method",
+            "name": "testTreeCalculator",
+            "attributes": []
+        },
+        {
+            "key": 58,
+            "type": "class",
+            "name": "TreeCalculator",
+            "attributes": [
+                "ExpressionTree"
+            ]
+        },
+        {
+            "key": 59,
+            "type": "method",
+            "name": "evaluate",
+            "attributes": []
+        },
+        {
+            "key": 60,
+            "type": "method",
+            "name": "getRealResult",
+            "attributes": [
+                "TreeNode"
+            ]
+        },
+        {
+            "key": 61,
+            "type": "method",
+            "name": "inOrder1",
+            "attributes": [
+                "TreeNode"
+            ]
+        },
+        {
+            "key": 62,
+            "type": "method",
+            "name": "inOrder2",
+            "attributes": [
+                "TreeNode"
+            ]
+        },
+        {
+            "key": 63,
+            "type": "method",
+            "name": "inOrder3",
+            "attributes": [
+                "TreeNode"
+            ]
+        },
+        {
+            "key": 64,
+            "type": "method",
+            "name": "getInfix",
+            "attributes": []
+        },
+        {
+            "key": 65,
+            "type": "method",
+            "name": "getPrefix",
+            "attributes": []
+        },
+        {
+            "key": 66,
+            "type": "method",
+            "name": "getPostfix",
+            "attributes": []
+        },
+        {
+            "key": 67,
+            "type": "class",
+            "name": "ValueToken",
+            "attributes": []
+        },
+        {
+            "key": 68,
+            "type": "method",
+            "name": "getValue",
+            "attributes": []
+        },
+        {
+            "key": 69,
+            "type": "method",
+            "name": "toString",
+            "attributes": []
+        }
+    ],
+    "edges": [
+        {
+            "type": "method",
+            "from": 0,
+            "to": 1
+        },
+        {
+            "type": "method",
+            "from": 0,
+            "to": 2
+        },
+        {
+            "type": "method",
+            "from": 0,
+            "to": 3
+        },
+        {
+            "type": "extends",
+            "from": 0,
+            "to": 4
+        },
+        {
+            "type": "method",
+            "from": 5,
+            "to": 6
+        },
+        {
+            "type": "method",
+            "from": 7,
+            "to": 8
+        },
+        {
+            "type": "extends",
+            "from": 7,
+            "to": 9
+        },
+        {
+            "type": "method",
+            "from": 10,
+            "to": 11
+        },
+        {
+            "type": "method",
+            "from": 10,
+            "to": 12
+        },
+        {
+            "type": "method",
+            "from": 10,
+            "to": 13
+        },
+        {
+            "type": "extends",
+            "from": 10,
+            "to": 4
+        },
+        {
+            "type": "field",
+            "from": 14,
+            "to": 15
+        },
+        {
+            "type": "field",
+            "from": 14,
+            "to": 16
+        },
+        {
+            "type": "method",
+            "from": 14,
+            "to": 17
+        },
+        {
+            "type": "method",
+            "from": 18,
+            "to": 19
+        },
+        {
+            "type": "method",
+            "from": 18,
+            "to": 20
+        },
+        {
+            "type": "method",
+            "from": 18,
+            "to": 21
+        },
+        {
+            "type": "method",
+            "from": 18,
+            "to": 22
+        },
+        {
+            "type": "method",
+            "from": 18,
+            "to": 23
+        },
+        {
+            "type": "method",
+            "from": 18,
+            "to": 24
+        },
+        {
+            "type": "extends",
+            "from": 18,
+            "to": 25
+        },
+        {
+            "type": "implements",
+            "from": 18,
+            "to": 26
+        },
+        {
+            "type": "method",
+            "from": 27,
+            "to": 28
+        },
+        {
+            "type": "method",
+            "from": 27,
+            "to": 29
+        },
+        {
+            "type": "method",
+            "from": 27,
+            "to": 30
+        },
+        {
+            "type": "extends",
+            "from": 27,
+            "to": 4
+        },
+        {
+            "type": "method",
+            "from": 31,
+            "to": 32
+        },
+        {
+            "type": "extends",
+            "from": 31,
+            "to": 9
+        },
+        {
+            "type": "method",
+            "from": 33,
+            "to": 34
+        },
+        {
+            "type": "method",
+            "from": 33,
+            "to": 35
+        },
+        {
+            "type": "method",
+            "from": 33,
+            "to": 36
+        },
+        {
+            "type": "extends",
+            "from": 33,
+            "to": 4
+        },
+        {
+            "type": "method",
+            "from": 37,
+            "to": 38
+        },
+        {
+            "type": "method",
+            "from": 37,
+            "to": 39
+        },
+        {
+            "type": "implements",
+            "from": 37,
+            "to": 40
+        },
+        {
+            "type": "method",
+            "from": 41,
+            "to": 42
+        },
+        {
+            "type": "method",
+            "from": 41,
+            "to": 43
+        },
+        {
+            "type": "method",
+            "from": 41,
+            "to": 44
+        },
+        {
+            "type": "extends",
+            "from": 41,
+            "to": 4
+        },
+        {
+            "type": "method",
+            "from": 45,
+            "to": 46
+        },
+        {
+            "type": "method",
+            "from": 45,
+            "to": 47
+        },
+        {
+            "type": "method",
+            "from": 45,
+            "to": 48
+        },
+        {
+            "type": "method",
+            "from": 45,
+            "to": 49
+        },
+        {
+            "type": "method",
+            "from": 45,
+            "to": 50
+        },
+        {
+            "type": "method",
+            "from": 45,
+            "to": 51
+        },
+        {
+            "type": "method",
+            "from": 45,
+            "to": 52
+        },
+        {
+            "type": "method",
+            "from": 45,
+            "to": 53
+        },
+        {
+            "type": "method",
+            "from": 45,
+            "to": 54
+        },
+        {
+            "type": "method",
+            "from": 45,
+            "to": 55
+        },
+        {
+            "type": "method",
+            "from": 45,
+            "to": 56
+        },
+        {
+            "type": "method",
+            "from": 45,
+            "to": 57
+        },
+        {
+            "type": "field",
+            "from": 58,
+            "to": 14
+        },
+        {
+            "type": "method",
+            "from": 58,
+            "to": 59
+        },
+        {
+            "type": "method",
+            "from": 58,
+            "to": 60
+        },
+        {
+            "type": "argument",
+            "from": 60,
+            "to": 15
+        },
+        {
+            "type": "method",
+            "from": 58,
+            "to": 61
+        },
+        {
+            "type": "argument",
+            "from": 61,
+            "to": 15
+        },
+        {
+            "type": "method",
+            "from": 58,
+            "to": 62
+        },
+        {
+            "type": "argument",
+            "from": 62,
+            "to": 15
+        },
+        {
+            "type": "method",
+            "from": 58,
+            "to": 63
+        },
+        {
+            "type": "argument",
+            "from": 63,
+            "to": 15
+        },
+        {
+            "type": "method",
+            "from": 58,
+            "to": 64
+        },
+        {
+            "type": "method",
+            "from": 58,
+            "to": 65
+        },
+        {
+            "type": "method",
+            "from": 58,
+            "to": 66
+        },
+        {
+            "type": "implements",
+            "from": 58,
+            "to": 40
+        },
+        {
+            "type": "method",
+            "from": 67,
+            "to": 68
+        },
+        {
+            "type": "method",
+            "from": 67,
+            "to": 69
+        },
+        {
+            "type": "extends",
+            "from": 67,
+            "to": 9
+        }
+    ]
+}
