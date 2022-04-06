@@ -1,0 +1,583 @@
+{
+    "vertices": [
+        {
+            "name": "calculate_bill",
+            "key": 1,
+            "type": "class",
+            "attributes": [
+                "JLabel l1",
+                "JLabel l2",
+                "JLabel l3",
+                "JLabel l4",
+                "JLabel l5",
+                "JTextField t1",
+                "Choice c2",
+                "JButton b1",
+                "JButton b2",
+                "JPanel p"
+            ]
+        },
+        {
+            "name": "ActionListener",
+            "key": 2,
+            "type": "class"
+        },
+        {
+            "name": "JFrame",
+            "key": 3,
+            "type": "class"
+        },
+        {
+            "name": "conn",
+            "key": 4,
+            "type": "class",
+            "attributes": [
+                "Connection c",
+                "Statement s"
+            ]
+        },
+        {
+            "name": "customer_details",
+            "key": 5,
+            "type": "class",
+            "attributes": [
+                "JTable t1",
+                "JButton b1",
+                "String x",
+                "String y",
+                "int i",
+                "int j"
+            ]
+        },
+        {
+            "name": "generate_bill",
+            "key": 6,
+            "type": "class",
+            "attributes": [
+                "JLabel l1",
+                "JTextArea t1",
+                "JButton b1",
+                "Choice c1",
+                "Choice c2",
+                "JPanel p1"
+            ]
+        },
+        {
+            "name": "LastBill",
+            "key": 7,
+            "type": "class",
+            "attributes": [
+                "JLabel l1",
+                "JTextArea t1",
+                "JButton b1",
+                "Choice c1",
+                "JPanel p1"
+            ]
+        },
+        {
+            "name": "login",
+            "key": 8,
+            "type": "class",
+            "attributes": [
+                "JLabel l1",
+                "JLabel l2",
+                "JLabel l3",
+                "JTextField tf1",
+                "JPasswordField pf2",
+                "JButton b1",
+                "JButton b2",
+                "JPanel p1",
+                "JPanel p2",
+                "JPanel p3",
+                "JPanel p4"
+            ]
+        },
+        {
+            "name": "unknown_class",
+            "key": 9,
+            "type": "class"
+        },
+        {
+            "name": "new_customer",
+            "key": 10,
+            "type": "class",
+            "attributes": [
+                "JLabel l1",
+                "JLabel l2",
+                "JLabel l3",
+                "JLabel l4",
+                "JLabel l5",
+                "JLabel l6",
+                "JLabel l7",
+                "JLabel l8",
+                "JTextField t1",
+                "JTextField t2",
+                "JTextField t3",
+                "JTextField t4",
+                "JTextField t5",
+                "JTextField t6",
+                "JTextField t7",
+                "JButton b1",
+                "JButton b2"
+            ]
+        },
+        {
+            "name": "pay_bill",
+            "key": 11,
+            "type": "class"
+        },
+        {
+            "name": "Project",
+            "key": 12,
+            "type": "class"
+        },
+        {
+            "name": "splash",
+            "key": 13,
+            "type": "class"
+        },
+        {
+            "name": "Runnable",
+            "key": 14,
+            "type": "class"
+        },
+        {
+            "name": "calculate_bill",
+            "key": 30,
+            "type": "method"
+        },
+        {
+            "name": "actionPerformed",
+            "key": 31,
+            "type": "method",
+            "attributes": [
+                "ActionEvent ae"
+            ]
+        },
+        {
+            "name": "main",
+            "key": 32,
+            "type": "method",
+            "attributes": [
+                "String args"
+            ]
+        },
+        {
+            "name": "conn",
+            "key": 33,
+            "type": "method"
+        },
+        {
+            "name": "customer_details",
+            "key": 34,
+            "type": "method"
+        },
+        {
+            "name": "actionPerformed",
+            "key": 35,
+            "type": "method",
+            "attributes": [
+                "ActionEvent ae"
+            ]
+        },
+        {
+            "name": "main",
+            "key": 36,
+            "type": "method",
+            "attributes": [
+                "String args"
+            ]
+        },
+        {
+            "name": "generate_bill",
+            "key": 37,
+            "type": "method"
+        },
+        {
+            "name": "actionPerformed",
+            "key": 38,
+            "type": "method",
+            "attributes": [
+                "ActionEvent ae"
+            ]
+        },
+        {
+            "name": "main",
+            "key": 39,
+            "type": "method",
+            "attributes": [
+                "String args"
+            ]
+        },
+        {
+            "name": "LastBill",
+            "key": 40,
+            "type": "method"
+        },
+        {
+            "name": "actionPerformed",
+            "key": 41,
+            "type": "method",
+            "attributes": [
+                "ActionEvent ae"
+            ]
+        },
+        {
+            "name": "main",
+            "key": 42,
+            "type": "method",
+            "attributes": [
+                "String args"
+            ]
+        },
+        {
+            "name": "login",
+            "key": 43,
+            "type": "method"
+        },
+        {
+            "name": "actionPerformed",
+            "key": 44,
+            "type": "method",
+            "attributes": [
+                "ActionEvent ae"
+            ]
+        },
+        {
+            "name": "main",
+            "key": 45,
+            "type": "method",
+            "attributes": [
+                "String args"
+            ]
+        },
+        {
+            "name": "setVisible",
+            "key": 46,
+            "type": "method"
+        },
+        {
+            "name": "new_customer",
+            "key": 47,
+            "type": "method"
+        },
+        {
+            "name": "actionPerformed",
+            "key": 48,
+            "type": "method",
+            "attributes": [
+                "ActionEvent ae"
+            ]
+        },
+        {
+            "name": "main",
+            "key": 49,
+            "type": "method",
+            "attributes": [
+                "String args"
+            ]
+        },
+        {
+            "name": "pay_bill",
+            "key": 50,
+            "type": "method"
+        },
+        {
+            "name": "main",
+            "key": 51,
+            "type": "method",
+            "attributes": [
+                "String args"
+            ]
+        },
+        {
+            "name": "Project",
+            "key": 52,
+            "type": "method"
+        },
+        {
+            "name": "actionPerformed",
+            "key": 53,
+            "type": "method",
+            "attributes": [
+                "ActionEvent ae"
+            ]
+        },
+        {
+            "name": "main",
+            "key": 54,
+            "type": "method",
+            "attributes": [
+                "String args"
+            ]
+        },
+        {
+            "name": "main",
+            "key": 55,
+            "type": "method",
+            "attributes": [
+                "String args"
+            ]
+        },
+        {
+            "name": "fframe",
+            "key": 56,
+            "type": "class",
+            "attributes": [
+                "Thread t1"
+            ]
+        },
+        {
+            "name": "fframe",
+            "key": 59,
+            "type": "method"
+        },
+        {
+            "name": "run",
+            "key": 60,
+            "type": "method"
+        }
+    ],
+    "edges": [
+        {
+            "type": "implements",
+            "from": 1,
+            "to": 2
+        },
+        {
+            "type": "implements",
+            "from": 5,
+            "to": 2
+        },
+        {
+            "type": "implements",
+            "from": 6,
+            "to": 2
+        },
+        {
+            "type": "implements",
+            "from": 7,
+            "to": 2
+        },
+        {
+            "type": "implements",
+            "from": 8,
+            "to": 2
+        },
+        {
+            "type": "implements",
+            "from": 10,
+            "to": 2
+        },
+        {
+            "type": "implements",
+            "from": 12,
+            "to": 2
+        },
+        {
+            "type": "extends",
+            "from": 1,
+            "to": 3
+        },
+        {
+            "type": "extends",
+            "from": 5,
+            "to": 3
+        },
+        {
+            "type": "extends",
+            "from": 6,
+            "to": 3
+        },
+        {
+            "type": "extends",
+            "from": 7,
+            "to": 3
+        },
+        {
+            "type": "extends",
+            "from": 8,
+            "to": 3
+        },
+        {
+            "type": "extends",
+            "from": 10,
+            "to": 3
+        },
+        {
+            "type": "extends",
+            "from": 11,
+            "to": 3
+        },
+        {
+            "type": "extends",
+            "from": 12,
+            "to": 3
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 30
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 31
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 32
+        },
+        {
+            "type": "method",
+            "from": 4,
+            "to": 33
+        },
+        {
+            "type": "method",
+            "from": 5,
+            "to": 34
+        },
+        {
+            "type": "method",
+            "from": 5,
+            "to": 35
+        },
+        {
+            "type": "method",
+            "from": 5,
+            "to": 36
+        },
+        {
+            "type": "method",
+            "from": 6,
+            "to": 37
+        },
+        {
+            "type": "method",
+            "from": 6,
+            "to": 38
+        },
+        {
+            "type": "method",
+            "from": 6,
+            "to": 39
+        },
+        {
+            "type": "method",
+            "from": 7,
+            "to": 40
+        },
+        {
+            "type": "method",
+            "from": 7,
+            "to": 41
+        },
+        {
+            "type": "method",
+            "from": 7,
+            "to": 42
+        },
+        {
+            "type": "method",
+            "from": 8,
+            "to": 43
+        },
+        {
+            "type": "method",
+            "from": 8,
+            "to": 44
+        },
+        {
+            "type": "method",
+            "from": 8,
+            "to": 45
+        },
+        {
+            "type": "method",
+            "from": 9,
+            "to": 46
+        },
+        {
+            "type": "method",
+            "from": 10,
+            "to": 47
+        },
+        {
+            "type": "method",
+            "from": 10,
+            "to": 48
+        },
+        {
+            "type": "method",
+            "from": 10,
+            "to": 49
+        },
+        {
+            "type": "method",
+            "from": 11,
+            "to": 50
+        },
+        {
+            "type": "method",
+            "from": 11,
+            "to": 51
+        },
+        {
+            "type": "method",
+            "from": 12,
+            "to": 52
+        },
+        {
+            "type": "method",
+            "from": 12,
+            "to": 53
+        },
+        {
+            "type": "method",
+            "from": 12,
+            "to": 54
+        },
+        {
+            "type": "method",
+            "from": 13,
+            "to": 55
+        },
+        {
+            "type": "method",
+            "from": 44,
+            "to": 46
+        },
+        {
+            "type": "method",
+            "from": 55,
+            "to": 46
+        },
+        {
+            "type": "method",
+            "from": 13,
+            "to": 56
+        },
+        {
+            "type": "implements",
+            "from": 56,
+            "to": 14
+        },
+        {
+            "type": "extends",
+            "from": 56,
+            "to": 3
+        },
+        {
+            "type": "method",
+            "from": 56,
+            "to": 59
+        },
+        {
+            "type": "method",
+            "from": 56,
+            "to": 60
+        }
+    ]
+}

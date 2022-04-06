@@ -1,0 +1,193 @@
+{
+    "vertices": [
+        {
+            "name": "Admin_Recruiter",
+            "key": 1,
+            "type": "class",
+            "attributes": [
+                "Connection conn",
+                "Statement stmt",
+                "ResultSet rs",
+                "ResultSetMetaData rsmd",
+                "javax detailTable",
+                "javax jLabel1",
+                "javax jLabel2",
+                "javax jLabel3",
+                "javax jLabel9",
+                "javax jPanel1",
+                "javax jScrollPane2",
+                "javax jTextField1",
+                "javax searchButton"
+            ]
+        },
+        {
+            "name": "javax",
+            "key": 2,
+            "type": "class"
+        },
+        {
+            "name": "unknown_class",
+            "key": 3,
+            "type": "class"
+        },
+        {
+            "name": "Admin_Recruiter",
+            "key": 5,
+            "type": "method"
+        },
+        {
+            "name": "initComponents",
+            "key": 6,
+            "type": "method"
+        },
+        {
+            "name": "searchButtonMouseClicked",
+            "key": 7,
+            "type": "method",
+            "attributes": [
+                "java evt"
+            ]
+        },
+        {
+            "name": "jTextField1KeyPressed",
+            "key": 8,
+            "type": "method",
+            "attributes": [
+                "java evt"
+            ]
+        },
+        {
+            "name": "jLabel9MouseClicked",
+            "key": 9,
+            "type": "method",
+            "attributes": [
+                "java evt"
+            ]
+        },
+        {
+            "name": "main",
+            "key": 10,
+            "type": "method",
+            "attributes": [
+                "String args"
+            ]
+        },
+        {
+            "name": "setDefaultCloseOperation",
+            "key": 11,
+            "type": "method"
+        },
+        {
+            "name": "setMinimumSize",
+            "key": 12,
+            "type": "method"
+        },
+        {
+            "name": "setResizable",
+            "key": 13,
+            "type": "method"
+        },
+        {
+            "name": "getContentPane",
+            "key": 14,
+            "type": "method"
+        },
+        {
+            "name": "pack",
+            "key": 15,
+            "type": "method"
+        }
+    ],
+    "edges": [
+        {
+            "type": "extends",
+            "from": 1,
+            "to": 2
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 5
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 6
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 7
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 8
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 9
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 10
+        },
+        {
+            "type": "method",
+            "from": 3,
+            "to": 11
+        },
+        {
+            "type": "method",
+            "from": 3,
+            "to": 12
+        },
+        {
+            "type": "method",
+            "from": 3,
+            "to": 13
+        },
+        {
+            "type": "method",
+            "from": 3,
+            "to": 14
+        },
+        {
+            "type": "method",
+            "from": 3,
+            "to": 15
+        },
+        {
+            "type": "method",
+            "from": 6,
+            "to": 11
+        },
+        {
+            "type": "method",
+            "from": 6,
+            "to": 12
+        },
+        {
+            "type": "method",
+            "from": 6,
+            "to": 13
+        },
+        {
+            "type": "method",
+            "from": 6,
+            "to": 14
+        },
+        {
+            "type": "method",
+            "from": 6,
+            "to": 15
+        },
+        {
+            "type": "contains",
+            "from": 1,
+            "to": 2
+        }
+    ]
+}
