@@ -20,7 +20,7 @@
         {
             "name": "ActionListener",
             "key": 2,
-            "type": "class"
+            "type": "interface"
         },
         {
             "name": "JFrame",
@@ -139,7 +139,7 @@
         {
             "name": "Runnable",
             "key": 14,
-            "type": "class"
+            "type": "interface"
         },
         {
             "name": "calculate_bill",
