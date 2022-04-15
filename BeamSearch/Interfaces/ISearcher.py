@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from BeamSearch.Interfaces.IResult import IResult
+from BeamSearch.Interfaces.IGraph import IGraph
 
 
 class ISearcher(ABC):
