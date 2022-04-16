@@ -1,8 +1,7 @@
-import string
 import copy
-
 from BeamSearch.Interfaces.IGraph import IGraph
 from BeamSearch.Interfaces.IQuery import IQuery
+from BeamSearch.Interfaces.ISearcher import ISearcher
 from BeamSearch.group import Group
 # from BeamSearch.model.WordEmbedding import WordEmbedding
 from BeamSearch.heap import Heap
@@ -31,7 +30,7 @@ def top_groups(k, beam: list) -> list:
     return res
 
 
-class BeamSearch():
+class BeamSearch(ISearcher):
     def __init__(self, graph:IGraph):
         self.graph :IGraph = graph
         # self.model = WordEmbedding(self.graph)
