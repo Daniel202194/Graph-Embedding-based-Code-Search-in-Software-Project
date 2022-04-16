@@ -1,12 +1,15 @@
+import string
+import copy
+
+from BeamSearch.Interfaces.IGraph import IGraph
+from BeamSearch.Interfaces.IQuery import IQuery
 from BeamSearch.group import Group
-from BeamSearch.maxheap import MaxHeap
-from Interfaces import IVertex
-from Interfaces.IGraph import IGraph
-from Interfaces.IQuery import IQuery
-from Interfaces.ISearcher import ISearcher
+# from BeamSearch.model.WordEmbedding import WordEmbedding
+from BeamSearch.heap import Heap
+
 
 def top(k, weights_map: dict) -> list:
-    heap = MaxHeap()
+    heap = Heap() # MAX HEAP
     for item in weights_map:
         heap.push(weights_map[item],item)
     res = []
@@ -16,16 +19,8 @@ def top(k, weights_map: dict) -> list:
         k-=1
     return res
 
-def build_sub_graph(vertices, edges) ->IGraph:
-    g = IGraph()
-    for v in vertices:
-        g.add_vertex(v)
-    for e in edges:
-        g.add_edge(e)
-    return g
-
 def top_groups(k, beam: list) -> list:
-    heap = MaxHeap()
+    heap = Heap(key=lambda x: -x) # MIN HEAP
     for group in beam:
         heap.push(group.cost, group)
     res = []
@@ -36,48 +31,42 @@ def top_groups(k, beam: list) -> list:
     return res
 
 
-class BeamSearch(ISearcher):
-    def __init__(self, graph:IGraph, query:IQuery):
+class BeamSearch():
+    def __init__(self, graph:IGraph):
         self.graph :IGraph = graph
-        self.query :IGraph = query
-        # self.model = WordEmbedding(Graph, 'src1')
-        # self.ranker = IRanker(self.model)
+        # self.model = WordEmbedding(self.graph)
+        # self.ranker = Ranker(self.model)
 
-
-    def generate_subgraph(self, k, candidates_by_token, weights):
+    def generate_subgraph(self, k :int, candidates_by_token :dict, weights :dict) ->set:
         beam = []
         for c in top(k, weights):
             beam.append(Group(c))
 
-        for group in beam:
-            for Ci in candidates_by_token.values():
-                group.select_candidate(Ci, self.model)
-
-        beam = top_groups(k, beam)
+        for Ci in candidates_by_token.values():
+            new_beam = []
+            for group in beam:
+                for c_key in Ci:
+                    delta = 0
+                    for v_key in group.vertices:
+                        delta += self.getDelta(c_key,v_key)
+                    cpy_group = copy.deepcopy(group)
+                    cpy_group.add_vertex_key(c_key)
+                    cpy_group.set_cost(cpy_group.cost + delta)
+                    new_beam.append(cpy_group)
+            beam = top_groups(k, new_beam)
         return top_groups(1, beam)[0].vertices
 
-    def search(self, k=2):
-        candidates_by_token, weights = self.__get_candidates()
-        vertices = self.generate_subgraph(k, candidates_by_token, weights)
-        graph :IGraph = self.extend_vertex_set_to_connected_subgraph(vertices)
-        graph.draw()
+    def search(self, query:IQuery, k :int=2) ->IGraph:
+        candidates_by_token, weights = self.__get_candidates(query)
+        vertices_keys = self.generate_subgraph(k, candidates_by_token, weights)
+        graph :IGraph = self.extend_vertex_set_to_connected_subgraph(vertices_keys)
         return graph
 
-    def findShortestPath(self, X :IVertex, Y :set):
-        shortest_path = float('inf')
-        path :list = None
-        v = None
-        for goal in Y:
-            new_path :list = self.graph.bfs(goal, X)
-            if new_path == None: new_path = self.graph.bfs(X, goal)
-            if new_path != None and len(new_path) < shortest_path:
-                shortest_path = len(new_path)
-                path = new_path
-                v = goal
-        return v, path
+    def dist(self, vertex1, vertex2) ->float:
+        return self.model.euclid(vertex1, vertex2)
 
-    def extend_vertex_set_to_connected_subgraph(self, vertex_set) ->IGraph:
-        Y = vertex_set
+    def extend_vertex_set_to_connected_subgraph(self, vertices_keys) ->Graph:
+        Y = vertices_keys
         E = set()
         V = set()
         E = set()
@@ -89,16 +78,39 @@ class BeamSearch(ISearcher):
                     E.add(edge)
                     V.add(edge.source)
                     V.add(edge.to)
-
-        graph: IGraph = build_sub_graph(V, E)
+        graph: Graph = self.build_sub_graph(V, E)
         return graph
 
+    def findShortestPath(self, X_key :int, Y :int):
+        shortest_path = float('inf')
+        path :list = None
+        v :int = None
 
-if __name__ == '__main__':
-    query = Query("class list implements class iterable,class list contains class node")
-    # query.graph.draw()
-    graph = CodeParser('../../Files/codes/src1').graph
-    searcher = BeamSearch(graph, query)
-    searcher.search()
-    # searcher.model.db.print_table('src1')
-    # searcher.model.db.delete_db()
+        for goal_key in Y:
+            dir1 :list = self.graph.bfs(goal_key, X_key)
+            dir2: list = self.graph.bfs(X_key, goal_key)
+            new_path = []
+            if dir1!=None and dir2!=None:
+                if len(dir1) < len(dir2):
+                    new_path = dir1
+                else:
+                    new_path = dir2
+            elif dir1!=None:
+                new_path = dir1
+            else:
+                new_path = dir2
+
+            if new_path != None and len(new_path) < shortest_path:
+                shortest_path = len(new_path)
+                path = new_path
+                v = goal_key
+        return v, path
+
+    def build_sub_graph(self, vertices :set, edges :set) -> IGraph:
+        g = IGraph()
+        for v_key in vertices:
+            g.add_vertex(self.graph.get_vertex(v_key))
+        for e in edges:
+            g.add_edge(e)
+        return g
+

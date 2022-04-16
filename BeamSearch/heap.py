@@ -1,5 +1,5 @@
 
-class MaxHeap:
+class Heap:
 
     def __init__(self, key=None):
         self.arr = list()

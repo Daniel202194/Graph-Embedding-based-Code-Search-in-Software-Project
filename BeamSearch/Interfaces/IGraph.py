@@ -5,7 +5,7 @@ from BeamSearch.Interfaces.IVertex import IVertex
 
 class IGraph(ABC):
     @abstractmethod
-    def bfs(self, goal: IVertex, start: IVertex) -> list:
+    def bfs(self, source: int, goal: int) -> list:
         pass
 
     @abstractmethod
@@ -17,9 +17,9 @@ class IGraph(ABC):
         pass
 
     @abstractmethod
-    def add_edge(self,edge:IEdge) -> None:
+    def get_edge(self,source_key :int, dest_key :int):
         pass
 
     @abstractmethod
-    def add_vertex(self, vertex: IVertex) -> None:
+    def get_vertex(self, key :int):
         pass
