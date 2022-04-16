@@ -3,7 +3,6 @@ from vertex import Vertex
 from edge import Edge
 import torch
 import torchtext
-from BeamSearch.Interfaces.IGraph import IGraph
 
 glove = torchtext.vocab.GloVe(name="6B", dim=50)
 

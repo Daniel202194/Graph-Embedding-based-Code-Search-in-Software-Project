@@ -1,6 +1,6 @@
 import math
 
-from BeamSearch.Interfaces.IVertex import IVertex
+from Interfaces.IVertex import IVertex
 
 
 def getDelta(model, c:IVertex, v:IVertex) ->float:
