@@ -31,6 +31,7 @@ def top_groups(k, beam: list) -> list:
 
 
 class BeamSearch(ISearcher):
+
     def __init__(self, graph:IGraph):
         self.graph :IGraph = graph
         # self.model = WordEmbedding(self.graph)

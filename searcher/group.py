@@ -1,31 +1,23 @@
-import math
-
-from Interfaces.IVertex import IVertex
-
-
-def getDelta(model, c:IVertex, v:IVertex) ->float:
-    delta = model.euclid(c, v)
-    return delta
 
 class Group:
-    def __init__(self, vertex:IVertex):
+    
+    def __init__(self, vertex_key :int):
         self.vertices = set()
-        self.vertices.add(vertex)
+        self.vertices.add(vertex_key)
         self.cost = 0
 
     def __len__(self):
         return len(self.vertices)
 
-    def select_candidate(self, candidates:list, model):
-        min_delta = math.inf
-        selected_candidate = None
-        for c in candidates:
-            delta = 0
-            for v in self.vertices:
-                delta += getDelta(model, c,v)
-            if delta < min_delta:
-                min_delta = delta
-                selected_candidate = c
-        self.cost += min_delta
-        self.vertices.add(selected_candidate)
-        return selected_candidate
+    def add_vertex_key(self, key :int) ->None:
+        self.vertices.add(key)
+
+    def set_cost(self, val :float) ->None:
+        self.cost = val
+
+    def __str__(self):
+        s='[ '
+        for v in self.vertices:
+            s+=v.name+' '+str(v.key)+','
+        s+=']'
+        return s
