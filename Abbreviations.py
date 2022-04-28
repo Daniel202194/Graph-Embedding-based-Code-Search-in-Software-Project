@@ -11,7 +11,6 @@ class Abbreviations:
         self.Abbreviations_path = Abbreviations_path
         lines = pd.read_csv(self.Abbreviations_path, header=None)
         for line in lines.iterrows():
-            print(line)
             line = list(line[1])
 
             if line[0][-1] == '.':
