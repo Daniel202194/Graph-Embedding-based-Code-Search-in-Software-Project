@@ -32,10 +32,13 @@ def top_groups(k, beam: list) -> list:
 
 class BeamSearch(ISearcher):
 
-    def __init__(self, graph:IGraph):
-        self.graph :IGraph = graph
+    def __init__(self, graph):
+        self.graph = graph
         # self.model = WordEmbedding(self.graph)
         # self.ranker = Ranker(self.model)
+
+    def getDelta(self, key1, key2):
+        return 1
 
     def generate_subgraph(self, k :int, candidates_by_token :dict, weights :dict) ->set:
         beam = []
@@ -56,11 +59,34 @@ class BeamSearch(ISearcher):
             beam = top_groups(k, new_beam)
         return top_groups(1, beam)[0].vertices
 
-    def search(self, query:IQuery, k :int=2) ->IGraph:
-        candidates_by_token, weights = self.__get_candidates(query)
+
+############################################################################
+    def aux1(self, candidates_by_token):
+        res = {}
+        for key in candidates_by_token.keys():
+            res[key] = set()
+            for val in candidates_by_token[key]:
+                res[key].add(val.key)
+        return res
+    def aux2(self, weights):
+        res = {}
+        for v in weights.keys():
+            res[v.key] = weights[v]
+        return res
+############################################################################
+
+    def search(self, query, k :int=2):
+        cc = self.graph.get_candidates(query)
+        candidates_by_token = self.aux1(cc)
+        print(candidates_by_token)
+
+        weights = self.aux2(self.graph.get_score_relevant(cc, query))
+        print(weights)
+
         vertices_keys = self.generate_subgraph(k, candidates_by_token, weights)
-        graph :IGraph = self.extend_vertex_set_to_connected_subgraph(vertices_keys)
-        return graph
+        print(vertices_keys)
+        # graph = self.extend_vertex_set_to_connected_subgraph(vertices_keys)
+        # return graph
 
     def dist(self, vertex1, vertex2) ->float:
         return self.model.euclid(vertex1, vertex2)
