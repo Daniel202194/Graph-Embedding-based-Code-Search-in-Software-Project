@@ -1,0 +1,311 @@
+{
+    "vertices": [
+        {
+            "name": "List",
+            "key": 1,
+            "type": "class",
+            "attributes": [
+                "Node head",
+                "Node tail"
+            ]
+        },
+        {
+            "name": "Iterable",
+            "key": 2,
+            "type": "interface"
+        },
+        {
+            "name": "ListFilterIterator",
+            "key": 3,
+            "type": "class",
+            "attributes": [
+                "List list",
+                "Node curr",
+                "Predicate prd"
+            ]
+        },
+        {
+            "name": "Iterator",
+            "key": 4,
+            "type": "interface"
+        },
+        {
+            "name": "ListIterator",
+            "key": 5,
+            "type": "class",
+            "attributes": [
+                "Node curr"
+            ]
+        },
+        {
+            "name": "Main",
+            "key": 6,
+            "type": "class"
+        },
+        {
+            "name": "Node",
+            "key": 7,
+            "type": "class",
+            "attributes": [
+                "data",
+                "Node next"
+            ]
+        },
+        {
+            "name": "List",
+            "key": 11,
+            "type": "method"
+        },
+        {
+            "name": "iterator",
+            "key": 12,
+            "type": "method"
+        },
+        {
+            "name": "add",
+            "key": 13,
+            "type": "method",
+            "attributes": [
+                "T data"
+            ]
+        },
+        {
+            "name": "getHead",
+            "key": 14,
+            "type": "method"
+        },
+        {
+            "name": "getTail",
+            "key": 15,
+            "type": "method"
+        },
+        {
+            "name": "ListFilterIterator",
+            "key": 16,
+            "type": "method"
+        },
+        {
+            "name": "hasNext",
+            "key": 17,
+            "type": "method"
+        },
+        {
+            "name": "next",
+            "key": 18,
+            "type": "method"
+        },
+        {
+            "name": "ListIterator",
+            "key": 19,
+            "type": "method"
+        },
+        {
+            "name": "hasNext",
+            "key": 20,
+            "type": "method"
+        },
+        {
+            "name": "next",
+            "key": 21,
+            "type": "method"
+        },
+        {
+            "name": "remove",
+            "key": 22,
+            "type": "method"
+        },
+        {
+            "name": "main",
+            "key": 23,
+            "type": "method",
+            "attributes": [
+                "String args"
+            ]
+        },
+        {
+            "name": "Node",
+            "key": 24,
+            "type": "method"
+        },
+        {
+            "name": "setNext",
+            "key": 25,
+            "type": "method",
+            "attributes": [
+                "Node next"
+            ]
+        },
+        {
+            "name": "getNext",
+            "key": 26,
+            "type": "method"
+        },
+        {
+            "name": "getData",
+            "key": 27,
+            "type": "method"
+        }
+    ],
+    "edges": [
+        {
+            "type": "implements",
+            "from": 1,
+            "to": 2
+        },
+        {
+            "type": "implements",
+            "from": 3,
+            "to": 4
+        },
+        {
+            "type": "implements",
+            "from": 5,
+            "to": 4
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 11
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 12
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 13
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 14
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 15
+        },
+        {
+            "type": "method",
+            "from": 3,
+            "to": 16
+        },
+        {
+            "type": "method",
+            "from": 3,
+            "to": 17
+        },
+        {
+            "type": "method",
+            "from": 3,
+            "to": 18
+        },
+        {
+            "type": "method",
+            "from": 5,
+            "to": 19
+        },
+        {
+            "type": "method",
+            "from": 5,
+            "to": 20
+        },
+        {
+            "type": "method",
+            "from": 5,
+            "to": 21
+        },
+        {
+            "type": "method",
+            "from": 5,
+            "to": 22
+        },
+        {
+            "type": "method",
+            "from": 6,
+            "to": 23
+        },
+        {
+            "type": "method",
+            "from": 7,
+            "to": 24
+        },
+        {
+            "type": "method",
+            "from": 7,
+            "to": 25
+        },
+        {
+            "type": "method",
+            "from": 7,
+            "to": 26
+        },
+        {
+            "type": "method",
+            "from": 7,
+            "to": 27
+        },
+        {
+            "type": "method",
+            "from": 13,
+            "to": 25
+        },
+        {
+            "type": "method",
+            "from": 18,
+            "to": 27
+        },
+        {
+            "type": "method",
+            "from": 18,
+            "to": 26
+        },
+        {
+            "type": "method",
+            "from": 21,
+            "to": 27
+        },
+        {
+            "type": "method",
+            "from": 21,
+            "to": 26
+        },
+        {
+            "type": "method",
+            "from": 23,
+            "to": 13
+        },
+        {
+            "type": "contains",
+            "from": 1,
+            "to": 7
+        },
+        {
+            "type": "contains",
+            "from": 3,
+            "to": 1
+        },
+        {
+            "type": "contains",
+            "from": 3,
+            "to": 7
+        },
+        {
+            "type": "contains",
+            "from": 5,
+            "to": 7
+        },
+        {
+            "type": "contains",
+            "from": 7,
+            "to": 7
+        },
+        {
+            "type": "contains",
+            "from": 25,
+            "to": 7
+        }
+    ]
+}

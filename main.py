@@ -20,7 +20,7 @@ if __name__ == '__main__':
     x = "list node iterable"
     parsing_query = p.query_parse(x)
     searcher.search(parsing_query)
-    #
+
     # graphs_candidates_nodes = graph.get_candidates(parsing_query)
     # print(graphs_candidates_nodes)
     #

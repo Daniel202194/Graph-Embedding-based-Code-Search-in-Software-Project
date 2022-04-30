@@ -1,8 +1,8 @@
 import copy
 from Interfaces.IGraph import IGraph
-from Interfaces.IQuery import IQuery
 from Interfaces.ISearcher import ISearcher
 # from searcher.model.WordEmbedding import WordEmbedding
+from searcher.auxiliaries import aux1, aux2
 from searcher.group import Group
 from searcher.heap import Heap
 
@@ -60,27 +60,12 @@ class BeamSearch(ISearcher):
         return top_groups(1, beam)[0].vertices
 
 
-############################################################################
-    def aux1(self, candidates_by_token):
-        res = {}
-        for key in candidates_by_token.keys():
-            res[key] = set()
-            for val in candidates_by_token[key]:
-                res[key].add(val.key)
-        return res
-    def aux2(self, weights):
-        res = {}
-        for v in weights.keys():
-            res[v.key] = weights[v]
-        return res
-############################################################################
-
     def search(self, query, k :int=2):
         cc = self.graph.get_candidates(query)
-        candidates_by_token = self.aux1(cc)
+        candidates_by_token = aux1(cc)
         print(candidates_by_token)
 
-        weights = self.aux2(self.graph.get_score_relevant(cc, query))
+        weights = aux2(self.graph.get_score_relevant(cc, query))
         print(weights)
 
         vertices_keys = self.generate_subgraph(k, candidates_by_token, weights)
