@@ -1,0 +1,59 @@
+{
+  "vertices": [
+    
+    {
+      "name": "student",
+      "key": 0,
+      "type": "class"
+    },
+	{
+      "name": "exam",
+      "key": 1,
+      "type": "class"
+    },
+    {
+      "name": "seat",
+      "key": 2,
+      "type": "class"
+    },
+    {
+      "name": "room",
+      "key": 3,
+      "type": "class"
+    },
+    {
+      "name": "seat",
+      "key": 4,
+      "type": "method"
+    }
+    
+  ],
+  "edges": [
+    {
+      "type": "contains",
+      "from": 2,
+      "to": 4
+    },
+	{
+      "type": "contains",
+      "from": 4,
+      "to": 3
+    },
+	{
+      "type": "contains",
+      "from": 4,
+      "to": 0
+    },
+	{
+      "type": "contains",
+      "from": 1,
+      "to": 0
+    },
+	{
+      "type": "contains",
+      "from": 0,
+      "to": 2
+    }
+	
+  ]
+}

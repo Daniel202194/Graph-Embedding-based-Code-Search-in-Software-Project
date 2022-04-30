@@ -1,0 +1,31 @@
+{
+  "vertices": [
+    {
+      "name": "system",
+      "key": 0,
+      "type": "class"
+    },
+    {
+      "name": "employee",
+      "key": 1,
+      "type": "class"
+    },
+    {
+      "name": "delete",
+      "key": 2,
+      "type": "method"
+    }
+  ],
+  "edges": [
+    {
+      "type": "contains",
+      "from": 0,
+      "to": 1
+    },
+    {
+      "type": "contains",
+      "from": 1,
+      "to": 2
+    }
+  ]
+}

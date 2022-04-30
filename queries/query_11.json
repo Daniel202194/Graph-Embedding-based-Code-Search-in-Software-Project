@@ -1,0 +1,21 @@
+{
+  "vertices": [
+    {
+      "name": "employee",
+      "key": 0,
+      "type": "class"
+    },
+    {
+      "name": "getDetail",
+      "key": 1,
+      "type": "method"
+    }
+  ],
+  "edges": [
+    {
+      "type": "contains",
+      "from": 0,
+      "to": 1
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "vertices": [
+    
+    {
+      "name": "billing",
+      "key": 0,
+      "type": "method"
+    },
+	{
+      "name": "billing",
+      "key": 1,
+      "type": "class"
+    },
+    {
+      "name": "generate",
+      "key": 2,
+      "type": "class"
+    },
+    {
+      "name": "generate",
+      "key": 3,
+      "type": "method"
+    },
+    {
+      "name": "system",
+      "key": 4,
+      "type": "method"
+    }
+    
+  ],
+  "edges": [
+    {
+      "type": "contains",
+      "from": 2,
+      "to": 3
+    },
+	{
+      "type": "contains",
+      "from": 1,
+      "to": 0
+    },
+	{
+      "type": "implements",
+      "from": 4,
+      "to": 1
+    },
+	{
+      "type": "implements",
+      "from": 4,
+      "to": 2
+    }
+	
+  ]
+}

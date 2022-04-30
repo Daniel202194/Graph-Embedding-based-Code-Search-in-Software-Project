@@ -1,0 +1,31 @@
+{
+  "vertices": [
+    {
+      "name": "student",
+      "key": 0,
+      "type": "class"
+    },
+    {
+      "name": "seat",
+      "key": 1,
+      "type": "class"
+    },
+     {
+      "name": "getSeat",
+      "key": 2,
+      "type": "method"
+    }
+  ],
+  "edges": [
+    {
+      "type": "contains",
+      "from": 0,
+      "to": 1
+    },
+    {
+      "type": "contains",
+      "from": 1,
+      "to": 2
+    }
+  ]
+}

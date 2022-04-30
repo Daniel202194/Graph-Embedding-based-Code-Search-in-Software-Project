@@ -1,0 +1,44 @@
+{
+  "vertices": [
+    
+    {
+      "name": "payBill",
+      "key": 0,
+      "type": "method"
+    },
+	{
+      "name": "payBill",
+      "key": 1,
+      "type": "class"
+    },
+    {
+      "name": "calculate",
+      "key": 2,
+      "type": "method"
+    },
+    {
+      "name": "software",
+      "key": 3,
+      "type": "method"
+    }
+    
+  ],
+  "edges": [
+    {
+      "type": "contains",
+      "from": 3,
+      "to": 1
+    },
+	{
+      "type": "contains",
+      "from": 1,
+      "to": 0
+    },
+	{
+      "type": "contains",
+      "from": 0,
+      "to": 2
+    }
+	
+  ]
+}
