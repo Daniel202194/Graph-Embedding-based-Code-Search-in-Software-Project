@@ -50,7 +50,7 @@ class Graph:
                     dist[neighbour] = dist[node] + 1
                     pred[neighbour] = node
                     queue.append(neighbour)
-                    if neighbour.key == goal.key:
+                    if neighbour == goal:
                         found = True
                         break
         if not found:
@@ -175,10 +175,17 @@ class Graph:
                 # score_ir = max(score_1_ir, score_2_ir, score_3_ir, score_4_ir)
                 score_r = max(score_1_r, score_2_r, score_3_r)
                 score_ir = max(score_1_ir, score_2_ir, score_3_ir)
+
                 if v in scores:
-                    scores[v] = scores[v] + (2 * score_r * score_ir / (score_r + score_ir))
+                    try:
+                        scores[v] = scores[v] + (2 * score_r * score_ir / (score_r + score_ir))
+                    except:
+                        scores[v] = scores[v]
                 else:
-                    scores[v] = 2 * score_r * score_ir / (score_r + score_ir)
+                    try:
+                        scores[v] = 2 * score_r * score_ir / (score_r + score_ir)
+                    except:
+                        scores[v] = 0
         return scores
 
     def get_candidates(self, query_set):
@@ -190,7 +197,8 @@ class Graph:
             except:
                 print(f"Not found for in glove for word : {q_word}")
         for word in query_set:
-            candidates[word] = set()
+            if word not in candidates:
+                candidates[word] = set()
             stem_word = self.stem.stem_term(word)
             if stem_word in self.word_vertex:
                 candidates[word] |= set(self.word_vertex[stem_word])
@@ -214,4 +222,4 @@ class Graph:
                     cur_ab_word = ''
                 if cur_ab_word != '' and cur_ab_word in self.word_vertex:
                         candidates[word] |= set(self.word_vertex[cur_ab_word])
-            return candidates
+        return candidates

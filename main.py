@@ -25,4 +25,5 @@ if __name__ == '__main__':
     for graph in graphs_candidates_nodes:
         nodes_score_per_graph[graph] = graph.get_score_relevant(graphs_candidates_nodes[graph], parsing_query)
 
-
+    for graph in graphs_list:
+        graph.bfs(46, 8)

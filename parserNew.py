@@ -40,15 +40,33 @@ class Parse:
                     elif i > 0 and char.islower():
                         word = word + char
                     else:
-                        v_sets.add(word.lower())
-                        word = char
-                if len(word) > 0:
+
+                        if char.isalpha():
+                            if len(word) > 1:
+                                v_sets.add(word.lower())
+                                if word.lower() in word_vertex:
+                                    word_vertex[word.lower()].append(v)
+                                else:
+                                    word_vertex[word.lower()] = [v]
+                            word = char
+                        else:
+                            if len(word) > 1:
+                                v_sets.add(word.lower())
+                                if word.lower() in word_vertex:
+                                    word_vertex[word.lower()].append(v)
+                                else:
+                                    word_vertex[word.lower()] = [v]
+                            word = ""
+
+                # v_sets.add(word.lower())
+                if len(word) > 1:
+                    v_sets.add(word.lower())
                     if word.lower() in word_vertex:
                         word_vertex[word.lower()].append(v)
                     else:
                         word_vertex[word.lower()] = [v]
-                    v_sets.add(word.lower())
                 bow_vertex[v] = v_sets
-                graph.add_bow_vertex(bow_vertex)
-                graph.add_word_to_vertex(word_vertex)
                 vertexes_name[v.name.lower()] = v
+            graph.add_bow_vertex(bow_vertex)
+            graph.add_word_to_vertex(word_vertex)
+
