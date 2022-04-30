@@ -23,6 +23,6 @@ if __name__ == '__main__':
         graphs_candidates_nodes[graph] = graph.get_candidates(parsing_query)
     nodes_score_per_graph = {}
     for graph in graphs_candidates_nodes:
-        graph.get_score_relevant(graphs_candidates_nodes[graph], parsing_query)
+        nodes_score_per_graph[graph] = graph.get_score_relevant(graphs_candidates_nodes[graph], parsing_query)
 
 
