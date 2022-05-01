@@ -6,6 +6,7 @@ import networkx as nx
 from graph import Graph
 from parserNew import Parse
 from Abbreviations import Abbreviations
+from searcher.BeamSearch import BeamSearch
 
 graphs_list = []
 
@@ -24,20 +25,23 @@ if __name__ == '__main__':
         file.close()
     p = Parse(graphs_list)
     p.nodes_parse()
-    x = input('User gives query:')
+
+    searcher = BeamSearch(graphs_list[0])
+
+    x = "block swap increase"
     parsing_query = p.query_parse(x)
-    graphs_candidates_nodes = {}
-    for graph in graphs_list:
-        graphs_candidates_nodes[graph] = graph.get_candidates(parsing_query)
-    nodes_score_per_graph = {}
-    nxGraphs = []
 
-    for graph in graphs_candidates_nodes:
-        nodes_score_per_graph[graph] = graph.get_score_relevant(graphs_candidates_nodes[graph], parsing_query)
+    searcher.search(parsing_query)
 
+
+
+
+
+    # graphs_candidates_nodes = {}
     # for graph in graphs_list:
-    #     g = nx.Graph()
-    #     list_edges = [(e.in_v.key, e.out_v.key) for e in graph.get_edges()]
-    #     g.add_edges_from(list_edges, weight=1)
-    #     nxGraphs.append(g)
-    #     nx.write_gpickle(g, f'{graph.name}.gpickle')
+    #     graphs_candidates_nodes[graph] = graph.get_candidates(parsing_query)
+    # nodes_score_per_graph = {}
+    # nxGraphs = []
+    #
+    # for graph in graphs_candidates_nodes:
+    #     nodes_score_per_graph[graph] = graph.get_score_relevant(graphs_candidates_nodes[graph], parsing_query)

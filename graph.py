@@ -41,7 +41,7 @@ class Graph:
         dist = np.linalg.norm(self.get_vector(key1) - self.get_vector(key2))
         return dist
 
-    def bfs(self, goal, start):
+    def bfs(self, start, goal):
         visited = []
         pred = {}
         dist = {start: 0}

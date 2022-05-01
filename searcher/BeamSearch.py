@@ -1,8 +1,9 @@
 import copy
-from Interfaces.IGraph import IGraph
-from Interfaces.IQuery import IQuery
-from Interfaces.ISearcher import ISearcher
+import string
+
 # from searcher.model.WordEmbedding import WordEmbedding
+from graph import Graph
+from searcher.auxiliaries import aux1, aux2
 from searcher.group import Group
 from searcher.heap import Heap
 
@@ -30,12 +31,15 @@ def top_groups(k, beam: list) -> list:
     return res
 
 
-class BeamSearch(ISearcher):
+class BeamSearch():
 
-    def __init__(self, graph:IGraph):
-        self.graph :IGraph = graph
+    def __init__(self, graph):
+        self.graph = graph
         # self.model = WordEmbedding(self.graph)
         # self.ranker = Ranker(self.model)
+
+    def getDelta(self, key1, key2):
+        return 1
 
     def generate_subgraph(self, k :int, candidates_by_token :dict, weights :dict) ->set:
         beam = []
@@ -56,16 +60,25 @@ class BeamSearch(ISearcher):
             beam = top_groups(k, new_beam)
         return top_groups(1, beam)[0].vertices
 
-    def search(self, query:IQuery, k :int=2) ->IGraph:
-        candidates_by_token, weights = self.__get_candidates(query)
+    def search(self, query :string, k :int=2):
+        cc = self.graph.get_candidates(query)
+        candidates_by_token = aux1(cc)
+        print(candidates_by_token)
+
+        weights = aux2(self.graph.get_score_relevant(cc, query))
+        print(weights)
+
         vertices_keys = self.generate_subgraph(k, candidates_by_token, weights)
-        graph :IGraph = self.extend_vertex_set_to_connected_subgraph(vertices_keys)
-        return graph
+        print("subgraph:", vertices_keys)
+
+        graph = self.extend_vertex_set_to_connected_subgraph(vertices_keys)
+
+        # return graph
 
     def dist(self, vertex1, vertex2) ->float:
         return self.model.euclid(vertex1, vertex2)
 
-    def extend_vertex_set_to_connected_subgraph(self, vertices_keys) ->IGraph:
+    def extend_vertex_set_to_connected_subgraph(self, vertices_keys):
         Y = vertices_keys
         E = set()
         V = set()
@@ -76,10 +89,13 @@ class BeamSearch(ISearcher):
             if path != None:
                 for edge in path:
                     E.add(edge)
-                    V.add(edge.source)
-                    V.add(edge.to)
-        graph: IGraph = self.build_sub_graph(V, E)
-        return graph
+                    V.add(edge.in_v)
+                    V.add(edge.out_v)
+
+        # print("V:",V)
+        # print("E:", E)
+        # graph = self.build_sub_graph(V, E)
+        # return graph
 
     def findShortestPath(self, X_key :int, Y :int):
         shortest_path = float('inf')
@@ -106,8 +122,8 @@ class BeamSearch(ISearcher):
                 v = goal_key
         return v, path
 
-    def build_sub_graph(self, vertices :set, edges :set) -> IGraph:
-        g = IGraph()
+    def build_sub_graph(self, vertices :set, edges :set):
+        g = Graph()
         for v_key in vertices:
             g.add_vertex(self.graph.get_vertex(v_key))
         for e in edges:
