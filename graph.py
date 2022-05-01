@@ -62,6 +62,7 @@ class Graph:
                         break
         if not found:
             print("There is no path from source node to destination node")
+            return None
         else:
             crawl = goal
             path = [crawl]
@@ -69,6 +70,7 @@ class Graph:
                 path.append(pred[crawl])
                 crawl = pred[crawl]
             path.reverse()
+            print("found", start,goal)
             return path
 
     def get_vertices(self):

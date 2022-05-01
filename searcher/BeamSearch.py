@@ -70,6 +70,8 @@ class BeamSearch():
 
         vertices_keys = self.generate_subgraph(k, candidates_by_token, weights)
         print("subgraph:", vertices_keys)
+        for key in vertices_keys:
+            print(key, self.graph.vertexes[key].name)
 
         graph = self.extend_vertex_set_to_connected_subgraph(vertices_keys)
 
@@ -86,11 +88,11 @@ class BeamSearch():
         while(Y.__len__()>0):
             X = Y.pop()
             v, path = self.findShortestPath(X, Y)
-            if path != None:
-                for edge in path:
-                    E.add(edge)
-                    V.add(edge.in_v)
-                    V.add(edge.out_v)
+            # if path != None:
+            #     for edge in path:
+            #         E.add(edge)
+            #         V.add(edge.in_v)
+            #         V.add(edge.out_v)
 
         # print("V:",V)
         # print("E:", E)
@@ -120,6 +122,8 @@ class BeamSearch():
                 shortest_path = len(new_path)
                 path = new_path
                 v = goal_key
+        print("v:",v)
+        print("path:", path)
         return v, path
 
     def build_sub_graph(self, vertices :set, edges :set):
