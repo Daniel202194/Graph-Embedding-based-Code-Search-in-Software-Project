@@ -1,17 +1,17 @@
 from stemmer import Stemmer
 from vertex import Vertex
 from edge import Edge
-import torch
-import torchtext
 import gensim.downloader as api
+import numpy as np
 
-# glove = torchtext.vocab.GloVe(name="6B", dim=50)
 glove = api.load("glove-twitter-25")  # load glove vectors
-# from glovApi import glove
+
 
 class Graph:
-    def __init__(self, vertexes={}, edges={}, abb_dict={}, bow_vertex={}, word_vertex={}, names={}):
+    def __init__(self, vertexes={}, edges={}, abb_dict={}, bow_vertex={}, word_vertex={}, names={}, name='',
+                 vertex_vectors={}):
         global glove
+        self.name = name
         self.vertexes = vertexes
         self.edges = edges
         self.bow_vertex = bow_vertex
@@ -24,6 +24,7 @@ class Graph:
         self.glove = glove
         self.neighbours = {}
         self.create_neighbours()
+        self.vertexes_vectors = vertex_vectors
 
     def create_neighbours(self):
         for vertex in self.vertexes:
@@ -33,12 +34,18 @@ class Graph:
                     neighbours.append(edge.out_v.key)
             self.neighbours[vertex] = neighbours
 
+    def get_vector(self, key):
+        return self.vertexes_vectors[key]
+
+    def vertexes_distance(self, key1, key2):
+        dist = np.linalg.norm(self.get_vector(key1) - self.get_vector(key2))
+        return dist
+
     def bfs(self, goal, start):
         visited = []
         pred = {}
         dist = {start: 0}
         queue = []
-        set_edges = set()
         visited.append(start)
         queue.append(start)
         found = False
@@ -68,7 +75,7 @@ class Graph:
         return list(self.vertexes.values())
 
     def get_edges(self):
-        return list(self.edges.values())
+        return list(self.edges)
 
     def add_edge(self, edge):
         if edge in self.edges:
@@ -95,7 +102,7 @@ class Graph:
         return self.word_vertex
 
     @staticmethod
-    def generate_graph(data, abb_dict):
+    def generate_graph(data, abb_dict, name, vertex_vectors):
         set_vertexes = {}
         set_edges = set()
         names = dict()
@@ -104,14 +111,7 @@ class Graph:
             names[v['name']] = v['name']
         for e in data['edges']:
             set_edges.add(Edge(e['type'], set_vertexes[e['from']], set_vertexes[e['to']]))
-        return Graph(set_vertexes, set_edges, abb_dict, names=names)
-
-    # def set_distances_between_vertecies(self):
-    #     dist = {}
-    #     for vertex in self.vertexes:
-    #         for edge in self.edges:
-    #             if edge.in_v is vertex:
-    #
+        return Graph(set_vertexes, set_edges, abb_dict, names=names, name=name, vertex_vectors=vertex_vectors)
 
     def get_score_relevant(self, candidates, query):
         scores = {}
@@ -154,7 +154,6 @@ class Graph:
                 # ---------- abbreviation rule  ---------#
 
                 # ---------- glove rule  ---------#
-
 
                 # new_bow_4 = {v: set()}
                 #
@@ -221,5 +220,5 @@ class Graph:
                 else:
                     cur_ab_word = ''
                 if cur_ab_word != '' and cur_ab_word in self.word_vertex:
-                        candidates[word] |= set(self.word_vertex[cur_ab_word])
+                    candidates[word] |= set(self.word_vertex[cur_ab_word])
         return candidates

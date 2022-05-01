@@ -1,0 +1,31 @@
+{
+  "vertices": [
+    {
+      "name": "login",
+      "key": 0,
+      "type": "class"
+    },
+    {
+      "name": "afterAction",
+      "key": 1,
+      "type": "method"
+    },
+    {
+      "name": "changeVisible",
+      "key": 2,
+      "type": "method"
+    }
+  ],
+  "edges": [
+    {
+      "type": "contains",
+      "from": 0,
+      "to": 1
+    },
+    {
+      "type": "contains",
+      "from": 1,
+      "to": 2
+    }
+  ]
+}

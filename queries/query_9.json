@@ -1,17 +1,17 @@
 {
   "vertices": [
     {
-      "name": "login",
+      "name": "seatStudent",
       "key": 0,
-      "type": "class"
-    },
-    {
-      "name": "afterAction",
-      "key": 1,
       "type": "method"
     },
     {
-      "name": "changeVisible",
+      "name": "student",
+      "key": 1,
+      "type": "class"
+    },
+    {
+      "name": "seat",
       "key": 2,
       "type": "method"
     }
@@ -19,12 +19,12 @@
   "edges": [
     {
       "type": "contains",
-      "from": 0,
-      "to": 1
+      "from": 1,
+      "to": 0
     },
     {
       "type": "contains",
-      "from": 1,
+      "from": 0,
       "to": 2
     }
   ]
