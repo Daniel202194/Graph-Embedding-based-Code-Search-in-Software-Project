@@ -113,7 +113,7 @@ class BeamSearch():
             #         V.add(edge.in_v)
             #         V.add(edge.out_v)
 
-        print("V:",V)
+        # print("V:",V)
         # print("E:", E)
         graph = self.build_sub_graph(V, E)
         return graph
@@ -142,8 +142,8 @@ class BeamSearch():
                 shortest_path = len(new_path)
                 path = new_path
                 v = goal_key
-        print("v:",v)
-        print("path:", path)
+        # print("v:",v)
+        # print("path:", path)
         return v, path
 
     def build_sub_graph(self, vertices :set, edges :set):
@@ -152,12 +152,5 @@ class BeamSearch():
             g.add_vertex(self.graph.get_vertex(v_key))
         for e in edges:
             g.add_edge(e)
-
-        print()
-        print("RESULT:")
-        print(g)
-        print(g.get_vertices())
-        for v in g.get_vertices():
-            print(v.name)
         return g
 
