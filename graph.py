@@ -32,7 +32,9 @@ class Graph:
             for edge in self.edges:
                 if edge.in_v.key == vertex:
                     neighbours.append(edge.out_v.key)
-            self.neighbours[vertex] = neighbours
+                elif edge.out_v.key == vertex:
+                    neighbours.append(edge.in_v.key)
+            self.neighbours[vertex] = list(set(neighbours))
 
     def get_vector(self, key):
         return self.vertexes_vectors[key]
@@ -40,6 +42,13 @@ class Graph:
     def vertexes_distance(self, key1, key2):
         dist = np.linalg.norm(self.get_vector(key1) - self.get_vector(key2))
         return dist
+
+    def get_edge(self, from_key, to_key):
+        for edge in self.edges:
+            if edge.in_v.key == from_key and edge.out_v.key == to_key:
+                return edge
+            elif edge.in_v.key == to_key and edge.out_v.key == from_key:
+                return edge
 
     def bfs(self, goal, start):
         visited = []
@@ -50,18 +59,20 @@ class Graph:
         queue.append(start)
         found = False
         while queue and not found:
-            node = queue.pop()
-            for neighbour in self.neighbours[node]:
-                if neighbour not in visited:
-                    visited.append(neighbour)
-                    dist[neighbour] = dist[node] + 1
-                    pred[neighbour] = node
-                    queue.append(neighbour)
-                    if neighbour == goal:
-                        found = True
-                        break
+            node = queue.pop(0)
+            if node in self.neighbours:
+                for neighbour in self.neighbours[node]:
+                    if neighbour not in visited:
+                        visited.append(neighbour)
+                        dist[neighbour] = dist[node] + 1
+                        pred[neighbour] = node
+                        queue.append(neighbour)
+                        if neighbour == goal:
+                            found = True
+                            break
         if not found:
-            print("There is no path from source (",str(start),") to destination (",str(goal),")")
+            print("There is no path from source node to destination node")
+            return []
         else:
             crawl = goal
             path = [crawl]
@@ -155,25 +166,44 @@ class Graph:
 
                 # ---------- glove rule  ---------#
 
-                # new_bow_4 = {v: set()}
-                #
-                # new_query_4 = set()
-                # for q in query:
-                #     new_query_4 |= set([x[0] for x in glove.most_similar(q)[:3]])
-                #     try:
-                #         new_bow_4[v] |= set(new_query_4)
-                #     except:
-                #         new_bow_4[v] |= set(w)
-                #
-                # for value in glove_dict.values():
-                # instrac_4 = len(new_query_4.intersection(new_bow_4[v]))
-                # score_4_r = instrac_4 / (len(query))
-                # score_4_ir = instrac_4 / (len(self.bow_vertex[v]))
+                new_bow_4 = {v: set()}
+                glove_dict = {}
+                new_query_4 = set()
+                for q in query:
+                    try:
+                        glove_dict[q] = set([x[0] for x in glove.most_similar(q)[:3]])
+                        # new_query_4 |= set([x[0] for x in glove.most_similar(q)[:3]])
+                    except:
+                        new_query_4.add(q)
+                        print(f"Not found for in glove for word : {q}")
+                for value in glove_dict.values():
+                    new_query_4 |= value
+                instrac_glove_list = []
+                instrac_glove_list.append(len(new_query_4.intersection(self.bow_vertex[v])))
+                score_r_glove = instrac_glove_list[0] / (len(new_query_4))
+                score_ir_glove = instrac_glove_list[0] / (len(self.bow_vertex[v]))
+                new_query_stem_glove = set()
+                for t in new_query_4:
+                    new_query_stem_glove.add(self.stem.stem_term(t))
+                instrac_glove_list.append(len(new_query_stem_glove.intersection(new_bow_2[v])))
+                score_r_glove += instrac_glove_list[1] / len(new_query_stem_glove)
+                score_ir_glove += instrac_glove_list[1] / (len(new_bow_2[v]))
+                new_query_abb = set()
+                for t in new_query_4:
+                    try:
+                        new_query_abb.add(self.abbreviation[t])
+                    except:
+                        new_query_abb.add(t)
+                instrac_glove_list.append(len(new_query_abb.intersection(new_bow_3[v])))
+                score_r_glove += instrac_glove_list[2] / (len(new_query_abb))
+                score_ir_glove += instrac_glove_list[2] / (len(new_bow_3[v]))
+
+
                 # ---------- glove rule  ---------#
-                # score_r = max(score_1_r, score_2_r, score_3_r, score_4_r)
-                # score_ir = max(score_1_ir, score_2_ir, score_3_ir, score_4_ir)
-                score_r = max(score_1_r, score_2_r, score_3_r)
-                score_ir = max(score_1_ir, score_2_ir, score_3_ir)
+                score_r = max(score_1_r, score_2_r, score_3_r, score_r_glove/3)
+                score_ir = max(score_1_ir, score_2_ir, score_3_ir, score_ir_glove/3)
+                # score_r = max(score_1_r, score_2_r, score_3_r)
+                # score_ir = max(score_1_ir, score_2_ir, score_3_ir)
 
                 if v in scores:
                     try:
@@ -209,22 +239,20 @@ class Graph:
                 candidates[word] |= set(self.word_vertex[ab_word])
             if word in self.word_vertex:
                 candidates[word] |= set(self.word_vertex[word])
-            for w in glove_dict[word]:
-                if w in self.word_vertex:
-                    candidates[word] |= set(self.word_vertex[w])
-                    curStem = self.stem.stem_term(w)
-                    if curStem in self.word_vertex:
+            if word in glove_dict:
+                for w in glove_dict[word]:
+                    if w in self.word_vertex:
                         candidates[word] |= set(self.word_vertex[w])
-                if w in self.abbreviation:
-                    cur_ab_word = self.abbreviation[w]
-                else:
-                    cur_ab_word = ''
-                if cur_ab_word != '' and cur_ab_word in self.word_vertex:
-                    candidates[word] |= set(self.word_vertex[cur_ab_word])
+                        curStem = self.stem.stem_term(w)
+                        if curStem in self.word_vertex:
+                            candidates[word] |= set(self.word_vertex[w])
+                    if w in self.abbreviation:
+                        cur_ab_word = self.abbreviation[w]
+                    else:
+                        cur_ab_word = ''
+                    if cur_ab_word != '' and cur_ab_word in self.word_vertex:
+                        candidates[word] |= set(self.word_vertex[cur_ab_word])
         return candidates
 
-
-
-
-    def get_vertex(self, key):
+    def get_vertex(self,key):
         return self.vertexes[key]

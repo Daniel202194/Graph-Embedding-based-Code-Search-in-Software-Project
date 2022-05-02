@@ -30,3 +30,7 @@ if __name__ == '__main__':
 
     searcher = BeamSearch(graph)
     result = searcher.search(query)
+
+    print('#################')
+    for vertex in result.get_vertices():
+        print(vertex.name)
