@@ -16,9 +16,14 @@ def top(k, weights_map: dict) -> list:
         candidate = heap.pop()
         res.append(candidate[0])
         k-=1
+
+    if(k==0 and heap.size > 0):
+        last_rank = weights_map[res[-1]]
+        while(heap.size>0 and heap.top()[1] == last_rank):
+            res.append(heap.pop()[0])
     return res
 
-def top_groups(k, beam: list) -> list:
+def top_groups(k, beam: list) ->list:
     heap = Heap(key=lambda x: -x) # MIN HEAP
     for group in beam:
         heap.push(group.cost, group)
@@ -26,7 +31,12 @@ def top_groups(k, beam: list) -> list:
     while(min(k,heap.size)>0):
         candidate = heap.pop()
         res.append(candidate[0])
+        last_rank = candidate[1]
         k-=1
+
+    if (k == 0 and heap.size > 0):
+        while (heap.size > 0 and heap.top()[1] == last_rank):
+            res.append(heap.pop()[0])
     return res
 
 
@@ -39,16 +49,16 @@ class BeamSearch():
 
     def getDelta(self, key1, key2, weigths):
         dist = self.graph.vertexes_distance(key1,key2)
-        # dist = 1
         w1 = weigths[key1]
         w2 = weigths[key2]
         delta = dist / ((w1*w2)+0.0001)
-        # print(delta)
         return delta
 
     def generate_subgraph(self, k :int, candidates_by_token :dict, weights :dict) ->set:
         beam = []
-        for c in top(k, weights):
+        top_k = top(k, weights)
+        # print("top_k:", top_k)
+        for c in top_k:
             beam.append(Group(c))
 
         for Ci in candidates_by_token.values():
@@ -63,25 +73,24 @@ class BeamSearch():
                     cpy_group.set_cost(cpy_group.cost + delta)
                     new_beam.append(cpy_group)
             beam = top_groups(k, new_beam)
-        return top_groups(1, beam)[0].vertices
+        return top_groups(1,beam)
 
     def search(self, query :string, k :int=2):
         cc = self.graph.get_candidates(query)
         candidates_by_token = aux1(cc)
-        print(candidates_by_token)
+        # print(candidates_by_token)
 
         weights = aux2(self.graph.get_score_relevant(cc, query))
-        print(weights)
+        # print(weights)
 
-        vertices_keys = self.generate_subgraph(k, candidates_by_token, weights)
-        print("subgraph:", vertices_keys)
-        for key in vertices_keys:
-            print(key, self.graph.vertexes[key].name)
-
+        groups = self.generate_subgraph(k, candidates_by_token, weights)
+        # for group in groups:
+        #     print(group)
+        cost = groups[0].cost
+        vertices_keys = groups[0].vertices
+        print("cost", cost, "subgraph:", vertices_keys)
         graph = self.extend_vertex_set_to_connected_subgraph(vertices_keys)
-
-        # return graph
-
+        return graph
 
 
     def extend_vertex_set_to_connected_subgraph(self, vertices_keys):
@@ -94,20 +103,18 @@ class BeamSearch():
             v, path = self.findShortestPath(X, Y)
             if path != None:
 
-            # WRONG LOGIC:
+            # WHILE BFS RETURNS VERTICES:
                 for vertex_key in path:
                     V.add(vertex_key)
 
-            # END OF WRONG LOGIC
-
-
+            # IF BFS RETURNS EDGES:
             #     for edge in path:
             #         E.add(edge)
             #         V.add(edge.in_v)
             #         V.add(edge.out_v)
 
         print("V:",V)
-        print("E:", E)
+        # print("E:", E)
         graph = self.build_sub_graph(V, E)
         return graph
 
@@ -130,13 +137,13 @@ class BeamSearch():
             else:
                 new_path = dir2
 
+
             if new_path != None and len(new_path) < shortest_path:
                 shortest_path = len(new_path)
                 path = new_path
                 v = goal_key
         print("v:",v)
         print("path:", path)
-        # path = [5, 46]
         return v, path
 
     def build_sub_graph(self, vertices :set, edges :set):
