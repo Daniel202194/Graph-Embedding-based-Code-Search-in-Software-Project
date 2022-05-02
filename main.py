@@ -43,8 +43,8 @@ if __name__ == '__main__':
     #             print(f'\tVertex Key: {v.vertex_type}')
     #     print('----------------------------------------')
 
-
-
+    #
+    #
     # for graph in graphs_list:
     #     print(f'graph name: {graph.name}')
     #     path = graph.bfs(41, 62)
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     #         edges_path.append(edge)
     #     new_path = []
     #     for edge in edges_path:
-    #         a = edge.in_v, edge.out_v
+    #         a = edge.in_v.key, edge.out_v.key
     #         new_path.append(a)
     #     print(f'edges path : {new_path}')
     #     print("-----------------------------")
