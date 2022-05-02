@@ -41,7 +41,7 @@ class Graph:
         dist = np.linalg.norm(self.get_vector(key1) - self.get_vector(key2))
         return dist
 
-    def bfs(self, start, goal):
+    def bfs(self, goal, start):
         visited = []
         pred = {}
         dist = {start: 0}
@@ -62,7 +62,6 @@ class Graph:
                         break
         if not found:
             print("There is no path from source node to destination node")
-            return None
         else:
             crawl = goal
             path = [crawl]
@@ -70,7 +69,6 @@ class Graph:
                 path.append(pred[crawl])
                 crawl = pred[crawl]
             path.reverse()
-            print("found", start,goal)
             return path
 
     def get_vertices(self):
@@ -226,11 +224,7 @@ class Graph:
         return candidates
 
 
-    # ADDED BY RON:
+
+
     def get_vertex(self, key):
         return self.vertexes[key]
-
-    def dist(self, vertex_key1, vertex_key2) ->float:
-        # should be implemented
-
-        return 1

@@ -38,7 +38,7 @@ class BeamSearch():
         # self.ranker = Ranker(self.model)
 
     def getDelta(self, key1, key2, weigths):
-        dist :float = self.graph.dist(key1,key2)
+        dist :float = self.graph.vertexes_distance(key1,key2)
         w1 = weigths[key1]
         w2 = weigths[key2]
         delta = dist / ((w1*w2)+0.0001)
