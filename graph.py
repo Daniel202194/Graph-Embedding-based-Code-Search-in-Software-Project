@@ -224,3 +224,13 @@ class Graph:
                 if cur_ab_word != '' and cur_ab_word in self.word_vertex:
                     candidates[word] |= set(self.word_vertex[cur_ab_word])
         return candidates
+
+
+    # ADDED BY RON:
+    def get_vertex(self, key):
+        return self.vertexes[key]
+
+    def dist(self, vertex_key1, vertex_key2) ->float:
+        # should be implemented
+
+        return 1

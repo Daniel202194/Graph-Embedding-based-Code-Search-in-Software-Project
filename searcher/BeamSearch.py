@@ -1,6 +1,5 @@
 import copy
 import string
-
 # from searcher.model.WordEmbedding import WordEmbedding
 from graph import Graph
 from searcher.auxiliaries import aux1, aux2
@@ -38,8 +37,12 @@ class BeamSearch():
         # self.model = WordEmbedding(self.graph)
         # self.ranker = Ranker(self.model)
 
-    def getDelta(self, key1, key2):
-        return 1
+    def getDelta(self, key1, key2, weigths):
+        dist :float = self.graph.dist(key1,key2)
+        w1 = weigths[key1]
+        w2 = weigths[key2]
+        delta = dist / ((w1*w2)+0.0001)
+        return delta
 
     def generate_subgraph(self, k :int, candidates_by_token :dict, weights :dict) ->set:
         beam = []
@@ -52,7 +55,7 @@ class BeamSearch():
                 for c_key in Ci:
                     delta = 0
                     for v_key in group.vertices:
-                        delta += self.getDelta(c_key,v_key)
+                        delta += self.getDelta(c_key,v_key, weights)
                     cpy_group = copy.deepcopy(group)
                     cpy_group.add_vertex_key(c_key)
                     cpy_group.set_cost(cpy_group.cost + delta)
@@ -77,8 +80,7 @@ class BeamSearch():
 
         # return graph
 
-    def dist(self, vertex1, vertex2) ->float:
-        return self.model.euclid(vertex1, vertex2)
+
 
     def extend_vertex_set_to_connected_subgraph(self, vertices_keys):
         Y = vertices_keys
@@ -88,15 +90,23 @@ class BeamSearch():
         while(Y.__len__()>0):
             X = Y.pop()
             v, path = self.findShortestPath(X, Y)
-            # if path != None:
+            if path != None:
+
+            # WRONG LOGIC:
+                for vertex_key in path:
+                    V.add(vertex_key)
+
+            # END OF WRONG LOGIC
+
+
             #     for edge in path:
             #         E.add(edge)
             #         V.add(edge.in_v)
             #         V.add(edge.out_v)
 
-        # print("V:",V)
-        # print("E:", E)
-        # graph = self.build_sub_graph(V, E)
+        print("V:",V)
+        print("E:", E)
+        graph = self.build_sub_graph(V, E)
         # return graph
 
     def findShortestPath(self, X_key :int, Y :int):
@@ -132,5 +142,12 @@ class BeamSearch():
             g.add_vertex(self.graph.get_vertex(v_key))
         for e in edges:
             g.add_edge(e)
+
+        print()
+        print("RESULT:")
+        print(g)
+        print(g.get_vertices())
+        for v in g.get_vertices():
+            print(v.name)
         return g
 
