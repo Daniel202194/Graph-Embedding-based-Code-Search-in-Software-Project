@@ -16,8 +16,4 @@ class Group:
         self.cost = val
 
     def __str__(self):
-        s='[ '
-        for v in self.vertices:
-            s+=v.name+' '+str(v.key)+','
-        s+=']'
-        return s
+        return str(self.cost) + str(self.vertices)

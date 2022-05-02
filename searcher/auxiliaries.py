@@ -6,7 +6,6 @@ def aux1(candidates_by_token):
             res[key].add(val.key)
     return res
 
-
 def aux2(weights):
     res = {}
     for v in weights.keys():

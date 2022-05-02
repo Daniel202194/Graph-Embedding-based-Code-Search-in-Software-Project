@@ -96,13 +96,3 @@ class Heap:
     def __iter__(self):
         return iter(self.arr)
 
-
-
-if __name__ == "__main__":
-    maxHeap = MaxHeap()
-    maxHeap.push(1, Vertex(1, "1", "class"))
-    # maxHeap.insert_item(1, Vertex(2, "2", "class"))
-    # maxHeap.insert_item(1, Vertex(3, "3", "class"))
-    res, rank = maxHeap.pop()
-    print(res)
-    print(rank)
