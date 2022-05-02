@@ -38,10 +38,12 @@ class BeamSearch():
         # self.ranker = Ranker(self.model)
 
     def getDelta(self, key1, key2, weigths):
-        dist :float = self.graph.vertexes_distance(key1,key2)
+        dist = self.graph.vertexes_distance(key1,key2)
+        # dist = 1
         w1 = weigths[key1]
         w2 = weigths[key2]
         delta = dist / ((w1*w2)+0.0001)
+        # print(delta)
         return delta
 
     def generate_subgraph(self, k :int, candidates_by_token :dict, weights :dict) ->set:
@@ -107,7 +109,7 @@ class BeamSearch():
         print("V:",V)
         print("E:", E)
         graph = self.build_sub_graph(V, E)
-        # return graph
+        return graph
 
     def findShortestPath(self, X_key :int, Y :int):
         shortest_path = float('inf')
@@ -134,6 +136,7 @@ class BeamSearch():
                 v = goal_key
         print("v:",v)
         print("path:", path)
+        # path = [5, 46]
         return v, path
 
     def build_sub_graph(self, vertices :set, edges :set):

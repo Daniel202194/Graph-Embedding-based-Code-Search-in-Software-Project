@@ -31,7 +31,16 @@ if __name__ == '__main__':
     x = "block swap increase"
     parsing_query = p.query_parse(x)
 
-    searcher.search(parsing_query)
+
+
+
+    result = searcher.search(parsing_query)
+
+
+
+
+
+
 
 
 

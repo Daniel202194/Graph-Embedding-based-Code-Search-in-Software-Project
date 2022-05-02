@@ -61,7 +61,7 @@ class Graph:
                         found = True
                         break
         if not found:
-            print("There is no path from source node to destination node")
+            print("There is no path from source (",str(start),") to destination (",str(goal),")")
         else:
             crawl = goal
             path = [crawl]
