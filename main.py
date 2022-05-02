@@ -1,6 +1,5 @@
 import json
 import os
-import pickle
 
 import networkx as nx
 from graph import Graph
@@ -27,14 +26,42 @@ if __name__ == '__main__':
     x = input('User gives query:')
     parsing_query = p.query_parse(x)
     graphs_candidates_nodes = {}
+
     for graph in graphs_list:
         graphs_candidates_nodes[graph] = graph.get_candidates(parsing_query)
     nodes_score_per_graph = {}
-    nxGraphs = []
-
     for graph in graphs_candidates_nodes:
         nodes_score_per_graph[graph] = graph.get_score_relevant(graphs_candidates_nodes[graph], parsing_query)
+    # for graph in graphs_candidates_nodes:
+    #     print(f'Graph Name: {graph.name}')
+    #     for word in parsing_query:
+    #         print(f'Candidates for token: {word}')
+    #         nodes = graphs_candidates_nodes[graph][word]
+    #         for v in nodes:
+    #             print(f'\tVertex Name: {v.name}')
+    #             print(f'\tVertex Key: {v.key}')
+    #             print(f'\tVertex Key: {v.vertex_type}')
+    #     print('----------------------------------------')
 
+
+
+    # for graph in graphs_list:
+    #     print(f'graph name: {graph.name}')
+    #     path = graph.bfs(41, 62)
+    #     print(f'bfs path {path}')
+    #     edges_path = []
+    #     for i in range(len(path) - 1):
+    #         vertex1 = path[i]
+    #         vertex2 = path[i+1]
+    #         edge = graph.get_edge(vertex1, vertex2)
+    #         edges_path.append(edge)
+    #     new_path = []
+    #     for edge in edges_path:
+    #         a = edge.in_v, edge.out_v
+    #         new_path.append(a)
+    #     print(f'edges path : {new_path}')
+    #     print("-----------------------------")
+    # nxGraphs = []
     # for graph in graphs_list:
     #     g = nx.Graph()
     #     list_edges = [(e.in_v.key, e.out_v.key) for e in graph.get_edges()]

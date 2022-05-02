@@ -41,6 +41,11 @@ class Graph:
         dist = np.linalg.norm(self.get_vector(key1) - self.get_vector(key2))
         return dist
 
+    def get_edge(self, from_key, to_key):
+        for edge in self.edges:
+            if edge.in_v.key == from_key and edge.out_v.key == to_key:
+                return edge
+
     def bfs(self, goal, start):
         visited = []
         pred = {}
@@ -51,17 +56,19 @@ class Graph:
         found = False
         while queue and not found:
             node = queue.pop()
-            for neighbour in self.neighbours[node]:
-                if neighbour not in visited:
-                    visited.append(neighbour)
-                    dist[neighbour] = dist[node] + 1
-                    pred[neighbour] = node
-                    queue.append(neighbour)
-                    if neighbour == goal:
-                        found = True
-                        break
+            if node in self.neighbours:
+                for neighbour in self.neighbours[node]:
+                    if neighbour not in visited:
+                        visited.append(neighbour)
+                        dist[neighbour] = dist[node] + 1
+                        pred[neighbour] = node
+                        queue.append(neighbour)
+                        if neighbour == goal:
+                            found = True
+                            break
         if not found:
             print("There is no path from source node to destination node")
+            return []
         else:
             crawl = goal
             path = [crawl]
@@ -209,16 +216,17 @@ class Graph:
                 candidates[word] |= set(self.word_vertex[ab_word])
             if word in self.word_vertex:
                 candidates[word] |= set(self.word_vertex[word])
-            for w in glove_dict[word]:
-                if w in self.word_vertex:
-                    candidates[word] |= set(self.word_vertex[w])
-                    curStem = self.stem.stem_term(w)
-                    if curStem in self.word_vertex:
+            if word in glove_dict:
+                for w in glove_dict[word]:
+                    if w in self.word_vertex:
                         candidates[word] |= set(self.word_vertex[w])
-                if w in self.abbreviation:
-                    cur_ab_word = self.abbreviation[w]
-                else:
-                    cur_ab_word = ''
-                if cur_ab_word != '' and cur_ab_word in self.word_vertex:
-                    candidates[word] |= set(self.word_vertex[cur_ab_word])
+                        curStem = self.stem.stem_term(w)
+                        if curStem in self.word_vertex:
+                            candidates[word] |= set(self.word_vertex[w])
+                    if w in self.abbreviation:
+                        cur_ab_word = self.abbreviation[w]
+                    else:
+                        cur_ab_word = ''
+                    if cur_ab_word != '' and cur_ab_word in self.word_vertex:
+                        candidates[word] |= set(self.word_vertex[cur_ab_word])
         return candidates
