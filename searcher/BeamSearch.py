@@ -54,7 +54,7 @@ class BeamSearch():
         delta = dist / ((w1*w2)+0.0001)
         return delta
 
-    def generate_subgraph(self, k :int, candidates_by_token :dict, weights :dict) ->set:
+    def generate_subgraph(self, k :int, candidates_by_token :dict, weights :dict):
         beam = []
         top_k = top(k, weights)
         # print("top_k:", top_k)
@@ -86,10 +86,13 @@ class BeamSearch():
         groups = self.generate_subgraph(k, candidates_by_token, weights)
         # for group in groups:
         #     print(group)
-        cost = groups[0].cost
-        vertices_keys = groups[0].vertices
-        print("cost", cost, "subgraph:", vertices_keys)
-        graph = self.extend_vertex_set_to_connected_subgraph(vertices_keys)
+
+        graph = Graph()
+        if len(groups) > 0:
+            cost = groups[0].cost
+            vertices_keys = groups[0].vertices
+            # print("cost:", cost, "subgraph:", vertices_keys)
+            graph = self.extend_vertex_set_to_connected_subgraph(vertices_keys)
         return graph
 
 
@@ -124,20 +127,7 @@ class BeamSearch():
         v :int = None
 
         for goal_key in Y:
-            dir1 :list = self.graph.bfs(goal_key, X_key)
-            dir2: list = self.graph.bfs(X_key, goal_key)
-            new_path = []
-            if dir1!=None and dir2!=None:
-                if len(dir1) < len(dir2):
-                    new_path = dir1
-                else:
-                    new_path = dir2
-            elif dir1!=None:
-                new_path = dir1
-            else:
-                new_path = dir2
-
-
+            new_path :list = self.graph.bfs(goal_key, X_key)
             if new_path != None and len(new_path) < shortest_path:
                 shortest_path = len(new_path)
                 path = new_path
@@ -150,7 +140,7 @@ class BeamSearch():
         g = Graph()
         for v_key in vertices:
             g.add_vertex(self.graph.get_vertex(v_key))
-        for e in edges:
-            g.add_edge(e)
+        # for e in edges:
+        #     g.add_edge(e)
         return g
 
