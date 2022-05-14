@@ -5,7 +5,7 @@ import networkx as nx
 from graph import Graph
 from parserNew import Parse
 from Abbreviations import Abbreviations
-
+from searcher.BeamSearch import BeamSearch
 graphs_list = []
 
 if __name__ == '__main__':
@@ -27,11 +27,20 @@ if __name__ == '__main__':
     parsing_query = p.query_parse(x)
     graphs_candidates_nodes = {}
 
+    # for graph in graphs_list:
+    #     graphs_candidates_nodes[graph] = graph.get_candidates(parsing_query)
+    # nodes_score_per_graph = {}
+    # for graph in graphs_candidates_nodes:
+    #     nodes_score_per_graph[graph] = graph.get_score_relevant(graphs_candidates_nodes[graph], parsing_query)
+    results = {}
     for graph in graphs_list:
-        graphs_candidates_nodes[graph] = graph.get_candidates(parsing_query)
-    nodes_score_per_graph = {}
-    for graph in graphs_candidates_nodes:
-        nodes_score_per_graph[graph] = graph.get_score_relevant(graphs_candidates_nodes[graph], parsing_query)
+        searcher = BeamSearch(graph)
+        result = searcher.search(parsing_query)
+        results[graph.name] = result
+    for graph in results:
+        print(f'Graph Name: {graph}')
+        for vertex in results[graph].get_vertices():
+            print(f'vertex name : {vertex.name} ,vertex key: {vertex.key}')
     # for graph in graphs_candidates_nodes:
     #     print(f'Graph Name: {graph.name}')
     #     for word in parsing_query:
