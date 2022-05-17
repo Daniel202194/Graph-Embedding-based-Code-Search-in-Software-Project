@@ -36,6 +36,9 @@ class Graph:
                     neighbours.append(edge.in_v.key)
             self.neighbours[vertex] = list(set(neighbours))
 
+    def get_vertex(self, key):
+        return self.vertexes[key]
+
     def get_vector(self, key):
         return self.vertexes_vectors[key]
 
@@ -80,7 +83,10 @@ class Graph:
                 path.append(pred[crawl])
                 crawl = pred[crawl]
             path.reverse()
-            return path
+            new_path = []
+            for i in range(len(path) - 1):
+                new_path.append(self.get_edge(path[i], path[i + 1]))
+            return new_path
 
     def get_vertices(self):
         return list(self.vertexes.values())
@@ -198,10 +204,9 @@ class Graph:
                 score_r_glove += instrac_glove_list[2] / (len(new_query_abb))
                 score_ir_glove += instrac_glove_list[2] / (len(new_bow_3[v]))
 
-
                 # ---------- glove rule  ---------#
-                score_r = max(score_1_r, score_2_r, score_3_r, score_r_glove/3)
-                score_ir = max(score_1_ir, score_2_ir, score_3_ir, score_ir_glove/3)
+                score_r = max(score_1_r, score_2_r, score_3_r, score_r_glove / 3)
+                score_ir = max(score_1_ir, score_2_ir, score_3_ir, score_ir_glove / 3)
                 # score_r = max(score_1_r, score_2_r, score_3_r)
                 # score_ir = max(score_1_ir, score_2_ir, score_3_ir)
 
