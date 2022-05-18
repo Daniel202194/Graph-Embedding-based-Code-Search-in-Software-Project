@@ -107,14 +107,14 @@ class BeamSearch():
             if path != None:
 
             # WHILE BFS RETURNS VERTICES:
-                for vertex_key in path:
-                    V.add(vertex_key)
+            #     for vertex_key in path:
+            #         V.add(vertex_key)
 
             # IF BFS RETURNS EDGES:
-            #     for edge in path:
-            #         E.add(edge)
-            #         V.add(edge.in_v)
-            #         V.add(edge.out_v)
+                for edge in path:
+                    E.add(edge)
+                    V.add(edge.in_v)
+                    V.add(edge.out_v)
 
         # print("V:",V)
         # print("E:", E)
@@ -139,8 +139,8 @@ class BeamSearch():
     def build_sub_graph(self, vertices :set, edges :set):
         g = Graph()
         for v_key in vertices:
-            g.add_vertex(self.graph.get_vertex(v_key))
-        # for e in edges:
-        #     g.add_edge(e)
+            g.add_vertex(v_key)
+        for e in edges:
+            g.add_edge(e)
         return g
 
