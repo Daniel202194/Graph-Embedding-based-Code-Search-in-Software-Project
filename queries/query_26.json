@@ -1,0 +1,47 @@
+{
+    "vertices": [
+        {
+            "key": 0,
+            "type": "interface",
+            "name": "generator",
+            "attributes": []
+        },
+        {
+            "key": 1,
+            "type": "interface",
+            "name": "mazeGenerator",
+            "attributes": []
+        },
+        {
+            "key": 2,
+            "type": "class",
+            "name": "maze",
+            "attributes": []
+        },
+        {
+            "key": 3,
+            "type": "class",
+            "name": "position",
+            "attributes": []
+        },
+        {
+            "key": 4,
+            "type": "method",
+            "name": "start",
+            "attributes": []
+        },
+        {
+            "key": 5,
+            "type": "class",
+            "name": "breadh_search",
+            "attributes": []
+        },
+        {
+            "key": 6,
+            "type": "class",
+            "name": "search",
+            "attributes": []
+        }
+    ],
+    "edges": []
+}

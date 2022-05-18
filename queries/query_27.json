@@ -1,0 +1,23 @@
+{
+    "vertices": [
+        {
+            "key": 0,
+            "type": "method",
+            "name": "calculate",
+            "attributes": []
+        },
+        {
+            "key": 1,
+            "type": "class",
+            "name": "expression",
+            "attributes": []
+        },
+        {
+            "key": 2,
+            "type": "method",
+            "name": "evaluate",
+            "attributes": []
+        }
+    ],
+    "edges": []
+}
