@@ -10,6 +10,15 @@ from searcher.BeamSearch import BeamSearch
 
 graphs_list = []
 
+
+def foo(graph):
+    print(graph.name)
+    searcher = BeamSearch(graph)
+    result = searcher.search(query)
+    # result.print()
+    for edge in result.get_edges():
+        print(edge)
+
 if __name__ == '__main__':
     Abbreviations_path = os.getcwd() + '\\' + 'Abbreviations.csv'
     abb = Abbreviations(Abbreviations_path)
@@ -24,12 +33,12 @@ if __name__ == '__main__':
         file.close()
     p = Parse(graphs_list)
     p.nodes_parse()
-    graph = graphs_list[0]
-    query = "block swap increase"
+    # graph = graphs_list[0]
+    # query = "block swap increase"
+    query = "login main"
     query = p.query_parse(query)
 
-    searcher = BeamSearch(graph)
-    result = searcher.search(query)
+    # foo(graphs_list[0])
 
-    for vertex in result.get_vertices():
-        print(vertex.name)
+    for graph in graphs_list:
+        foo(graph)

@@ -42,8 +42,8 @@ def top_groups(k, beam: list) ->list:
 
 class BeamSearch():
 
-    def __init__(self, graph):
-        self.graph = graph
+    def __init__(self, graph :Graph):
+        self.graph :Graph = graph
         # self.model = WordEmbedding(self.graph)
         # self.ranker = Ranker(self.model)
 
@@ -77,22 +77,26 @@ class BeamSearch():
 
     def search(self, query :string, k :int=2):
         cc = self.graph.get_candidates(query)
+        # print("cc:",cc)
+
         candidates_by_token = aux1(cc)
-        # print(candidates_by_token)
+        # print("candidates_by_token:", candidates_by_token)
 
         weights = aux2(self.graph.get_score_relevant(cc, query))
-        # print(weights)
+        # print("weights:",weights)
 
         groups = self.generate_subgraph(k, candidates_by_token, weights)
         # for group in groups:
         #     print(group)
 
         graph = Graph()
+        # print("empty graph:", graph.print(), graph)
         if len(groups) > 0:
             cost = groups[0].cost
             vertices_keys = groups[0].vertices
             # print("cost:", cost, "subgraph:", vertices_keys)
             graph = self.extend_vertex_set_to_connected_subgraph(vertices_keys)
+        # print(graph.print())
         return graph
 
 
@@ -116,7 +120,7 @@ class BeamSearch():
                     V.add(edge.in_v)
                     V.add(edge.out_v)
 
-        # print("V:",V)
+        # print("V:", V)
         # print("E:", E)
         graph = self.build_sub_graph(V, E)
         return graph
@@ -140,6 +144,7 @@ class BeamSearch():
         g = Graph()
         for v_key in vertices:
             g.add_vertex(v_key)
+            print(v_key)
         for e in edges:
             g.add_edge(e)
         return g
