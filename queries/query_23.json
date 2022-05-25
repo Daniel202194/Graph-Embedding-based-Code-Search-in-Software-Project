@@ -1,0 +1,28 @@
+{
+    "vertices": [
+        {
+            "key": 0,
+            "type": "class",
+            "name": "BlockList",
+            "attributes": []
+        },
+        {
+            "key": 1,
+            "type": "method",
+            "name": "xor",
+            "attributes": []
+        }
+    ],
+    "edges": [
+        {
+            "type": "method",
+            "from": 0,
+            "to": 1
+        },
+        {
+            "type": "method",
+            "from": 1,
+            "to": 0
+        }
+    ]
+}
