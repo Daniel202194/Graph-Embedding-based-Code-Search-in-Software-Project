@@ -90,7 +90,6 @@ class BeamSearch():
         #     print(group)
 
         graph = Graph()
-        # print("empty graph:", graph.print(), graph)
         if len(groups) > 0:
             cost = groups[0].cost
             vertices_keys = groups[0].vertices
@@ -109,17 +108,10 @@ class BeamSearch():
             X = Y.pop()
             v, path = self.findShortestPath(X, Y)
             if path != None:
-
-            # WHILE BFS RETURNS VERTICES:
-            #     for vertex_key in path:
-            #         V.add(vertex_key)
-
-            # IF BFS RETURNS EDGES:
                 for edge in path:
                     E.add(edge)
                     V.add(edge.in_v)
                     V.add(edge.out_v)
-
         # print("V:", V)
         # print("E:", E)
         graph = self.build_sub_graph(V, E)
@@ -144,7 +136,6 @@ class BeamSearch():
         g = Graph()
         for v_key in vertices:
             g.add_vertex(v_key)
-            print(v_key)
         for e in edges:
             g.add_edge(e)
         return g
