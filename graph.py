@@ -95,10 +95,10 @@ class Graph:
         return list(self.edges)
 
     def add_edge(self, edge):
-        if edge in self.edges:
-            raise Exception(f'edge already exists')
-        else:
-            self.edges.add(edge)
+        # if edge in self.edges:
+        #     raise Exception(f'edge already exists')
+        # else:
+        self.edges.add(edge)
 
     def add_vertex(self, vertex):
         if vertex.key in self.vertexes:

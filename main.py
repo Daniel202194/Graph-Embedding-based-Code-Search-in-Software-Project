@@ -24,10 +24,10 @@ if __name__ == '__main__':
     p = Parse(graphs_list)
     p.nodes_parse()
     x = ''
-    while x != 'stop':
-        try:
-            x = input('User gives query:')
-            parsing_query = p.query_parse(x)
+    # while x != 'stop':
+    #     try:
+    #         x = input('User gives query:')
+    #         parsing_query = p.query_parse(x)
             # graphs_candidates_nodes = {}
 
             # for graph in graphs_list:
@@ -35,18 +35,21 @@ if __name__ == '__main__':
             # nodes_score_per_graph = {}
             # for graph in graphs_candidates_nodes:
             #     nodes_score_per_graph[graph] = graph.get_score_relevant(graphs_candidates_nodes[graph], parsing_query)
-            results = {}
-            for graph in graphs_list:
-                searcher = BeamSearch(graph)
-                result = searcher.search(parsing_query)
-                results[graph.name] = result
-            for graph in results:
-                print(f'Graph Name: {graph}')
-                for vertex in results[graph].get_vertices():
-                    print(f'vertex name : {vertex.name} ,vertex key: {vertex.key}')
-        except:
-            print('fail')
-            # for graph in graphs_candidates_nodes:
+        #     results = {}
+        #     for graph in graphs_list:
+        #         searcher = BeamSearch(graph)
+        #         result = searcher.search(parsing_query)
+        #         results[graph.name] = result
+        #         searcher = None
+        #         result = None
+        #     for graph in results:
+        #         print(f'Graph Name: {graph}')
+        #         for vertex in results[graph].get_vertices():
+        #             print(f'vertex name : {vertex.name} ,vertex key: {vertex.key}')
+        # except Exception:
+
+            # print('fail')
+            # for graph in graphs_candidates_nodes
             #     print(f'Graph Name: {graph.name}')
             #     for word in parsing_query:
             #         print(f'Candidates for token: {word}')
@@ -75,10 +78,13 @@ if __name__ == '__main__':
             #         new_path.append(a)
             #     print(f'edges path : {new_path}')
             #     print("-----------------------------")
-            # nxGraphs = []
-            # for graph in graphs_list:
-            #     g = nx.Graph()
-            #     list_edges = [(e.in_v.key, e.out_v.key) for e in graph.get_edges()]
-            #     g.add_edges_from(list_edges, weight=1)
-            #     nxGraphs.append(g)
-            #     nx.write_gpickle(g, f'{graph.name}.gpickle')
+    nxGraphs = []
+    for graph in graphs_list:
+        if "hssf" in graph.name:
+            g = nx.Graph()
+            list_edges = [(e.in_v.key, e.out_v.key) for e in graph.get_edges()]
+            g.add_edges_from(list_edges, weight=1)
+            nxGraphs.append(g)
+            nx.write_gpickle(g, f'{graph.name}.gpickle')
+        else:
+            continue
