@@ -181,7 +181,8 @@ class Graph:
                         # new_query_4 |= set([x[0] for x in glove.most_similar(q)[:3]])
                     except:
                         new_query_4.add(q)
-                        print(f"Not found for in glove for word : {q}")
+                        # print(f"Not found for in glove for word : {q}")
+                        pass
                 for value in glove_dict.values():
                     new_query_4 |= value
                 instrac_glove_list = []
@@ -286,24 +287,24 @@ class Ron:
     def __str__(self):
         return str(self.lst)
 
-if __name__ == '__main__':
-    g = Graph()
-    v1 = Vertex('n1','t1',1)
-    v2 = Vertex('n2', 't2', 2)
-    e12 = Edge('r12',v1,v2)
-    g.add_vertex(v1)
-    g.add_vertex(v2)
-    g.add_edge(e12)
-    print("g:", g)
-
-    g2 = Graph()
-    print("g2:", g2)
-
-    g3 = Graph()
-    print("g3:", g2)
-
-    r1 = Ron()
-    r1.add(1)
-    print(r1)
-    r2 = Ron()
-    print(r2)
+# if __name__ == '__main__':
+#     g = Graph()
+#     v1 = Vertex('n1','t1',1)
+#     v2 = Vertex('n2', 't2', 2)
+#     e12 = Edge('r12',v1,v2)
+#     g.add_vertex(v1)
+#     g.add_vertex(v2)
+#     g.add_edge(e12)
+#     print("g:", g)
+#
+#     g2 = Graph()
+#     print("g2:", g2)
+#
+#     g3 = Graph()
+#     print("g3:", g2)
+#
+#     r1 = Ron()
+#     r1.add(1)
+#     print(r1)
+#     r2 = Ron()
+#     print(r2)
